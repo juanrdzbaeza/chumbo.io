@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 270" role="img" aria-label="chumbo.io">
+  <title>chumbo.io</title>
+  <defs>
+    <mask id="bite">
+      <rect width="200" height="270" fill="white"/>
+      <circle cx="163" cy="116" r="36" fill="black"/>
+    </mask>
+    <clipPath id="body-clip">
+      <path d="M100,56 C75,56 54,70 46,90
+               C34,120 32,165 52,200
+               C64,220 80,232 100,234
+               C120,232 136,220 148,200
+               C168,165 166,118 158,86
+               C152,57 125,56 100,56Z"/>
+    </clipPath>
+  </defs>
+
+  <!--
+    Forma: casi trapecio con esquinas redondeadas.
+    - Top: controles a y=56/57 → la curva sale casi horizontal durante toda la anchura
+            antes de doblar hacia los lados en y≈86 → techo muy plano
+    - Bottom: hombros a x=52/148 (más estrechos que los de arriba x=42/158)
+              + base redondeada hasta y=234
+    - Zona media: más ancha ~y=140–165
+  -->
+  <path d="M100,56 C75,56 54,70 46,90
+           C34,120 32,165 52,200
+           C64,220 80,232 100,234
+           C120,232 136,220 148,200
+           C168,165 166,118 158,86
+           C152,57 125,56 100,56Z"
+        fill="#9B1D35"
+        mask="url(#bite)"/>
+
+  <!-- Aréolas en patrón diagonal -->
+  <g fill="#7A1528" clip-path="url(#body-clip)" mask="url(#bite)">
+    <circle cx="70"  cy="103" r="2.5"/>
+    <circle cx="88"  cy="91"  r="2.5"/>
+    <circle cx="103" cy="81"  r="2.5"/>
+    <circle cx="57"  cy="135" r="2.5"/>
+    <circle cx="74"  cy="123" r="2.5"/>
+    <circle cx="91"  cy="112" r="2.5"/>
+    <circle cx="54"  cy="166" r="2.5"/>
+    <circle cx="70"  cy="153" r="2.5"/>
+    <circle cx="87"  cy="142" r="2.5"/>
+    <circle cx="104" cy="132" r="2.5"/>
+    <circle cx="58"  cy="196" r="2.5"/>
+    <circle cx="74"  cy="183" r="2.5"/>
+    <circle cx="90"  cy="173" r="2.5"/>
+    <circle cx="76"  cy="213" r="2.5"/>
+    <circle cx="90"  cy="205" r="2.5"/>
+  </g>
+
+  <!-- Tallito + hojita estilo Apple -->
+  <g fill="#9B1D35">
+    <path d="M97,48 C96,40 98,32 101,26
+                    C104,32 104,40 103,48 Z"/>
+    <path d="M102,37 C114,29 126,23 128,22
+                     C128,26 120,35 103,42 Z"/>
+  </g>
+</svg>
+
