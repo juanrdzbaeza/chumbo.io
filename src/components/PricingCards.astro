@@ -1,57 +1,30 @@
 ---
 export interface Props {
-  standalone?: boolean; // true en /precios, false en home
+  standalone?: boolean;
 }
 const { standalone = false } = Astro.props;
 
-const plans = [
+const tiers = [
   {
     name: 'Starter',
     price: '69',
-    desc: 'Para establecimientos individuales que necesitan cumplir sin complicaciones.',
-    features: [
-      '1 establecimiento',
-      'Hasta 10 piscinas',
-      'Registro diario ilimitado',
-      'Generación de XML para SILOE',
-      'Gestión de muestras de laboratorio',
-      'Soporte por email',
-    ],
-    cta: 'Empezar con Starter',
-    highlighted: false,
+    tag: null,
+    for: 'Un establecimiento con piscina',
+    note: 'Ideal para hoteles independientes, campings o comunidades de vecinos.',
   },
   {
     name: 'Pro',
     price: '129',
-    desc: 'Para cadenas pequeñas o gestoras con varios establecimientos.',
-    features: [
-      'Hasta 5 establecimientos',
-      'Piscinas ilimitadas por establecimiento',
-      'Registro diario ilimitado',
-      'Generación de XML para SILOE',
-      'Gestión de muestras de laboratorio',
-      'Historial completo exportable',
-      'Soporte prioritario por email',
-    ],
-    cta: 'Empezar con Pro',
-    highlighted: true,
+    tag: 'El más elegido',
+    for: 'Hasta 5 establecimientos',
+    note: 'Para cadenas pequeñas o gestoras con varias instalaciones.',
   },
   {
     name: 'Enterprise',
     price: '299',
-    desc: 'Para grandes cadenas hoteleras o gestoras sin límite de instalaciones.',
-    features: [
-      'Establecimientos ilimitados',
-      'Piscinas ilimitadas',
-      'Registro diario ilimitado',
-      'Generación de XML para SILOE',
-      'Gestión de muestras de laboratorio',
-      'Historial completo exportable',
-      'Onboarding personalizado',
-      'Soporte prioritario directo',
-    ],
-    cta: 'Contactar para Enterprise',
-    highlighted: false,
+    tag: null,
+    for: 'Establecimientos ilimitados',
+    note: 'Para grandes cadenas hoteleras o gestoras sin límite de crecimiento.',
   },
 ];
 ---
@@ -59,55 +32,60 @@ const plans = [
 <section class="pricing" id="precios">
   <div class="container">
     {!standalone && <span class="section-label section-label--dark">Precios</span>}
+
     <h2 class="pricing-title">
       {standalone ? 'Planes y precios' : 'Sin letra pequeña'}
     </h2>
     <p class="pricing-sub">
-      Suscripción mensual. Sin permanencia. Cancela cuando quieras.
-      {standalone && <><br />Todos los planes incluyen acceso completo — no hay funcionalidades ocultas.</>}
+      Suscripción mensual. Sin permanencia. Cancela cuando quieras.<br />
+      Durante la <strong>beta pública</strong> todos los planes incluyen
+      acceso completo a Siloe-Generator — sin funcionalidades recortadas.
+      Los detalles definitivos de cada plan los estamos cerrando;
+      si tienes prisa, escríbenos y lo hablamos.
     </p>
 
-    <div class="plans-grid">
-      {plans.map(plan => (
-        <div class={`plan-card${plan.highlighted ? ' plan-card--highlighted' : ''}`}>
-          {plan.highlighted && (
-            <div class="plan-badge">Más popular</div>
-          )}
-          <div class="plan-header">
-            <h3 class="plan-name">{plan.name}</h3>
-            <div class="plan-price">
-              <span class="plan-amount">{plan.price} €</span>
-              <span class="plan-period">/mes</span>
+    <!-- Beta notice -->
+    <div class="beta-notice">
+      <span class="beta-dot"></span>
+      <span>
+        <strong>Beta pública activa.</strong> Los precios y límites exactos
+        de cada plan pueden ajustarse antes del lanzamiento oficial.
+        Lo que no cambia: el precio que empieces a pagar es el que mantienes.
+      </span>
+    </div>
+
+    <div class="tiers-grid">
+      {tiers.map(t => (
+        <div class={`tier-card${t.tag ? ' tier-card--featured' : ''}`}>
+          {t.tag && <div class="tier-tag">{t.tag}</div>}
+          <div class="tier-header">
+            <h3 class="tier-name">{t.name}</h3>
+            <div class="tier-price">
+              <span class="tier-amount">{t.price} €</span>
+              <span class="tier-period">/mes</span>
             </div>
-            <p class="plan-desc">{plan.desc}</p>
           </div>
-          <ul class="plan-features">
-            {plan.features.map(f => (
-              <li>
-                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-                  <polyline points="2,9 6,13 14,4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                {f}
-              </li>
-            ))}
-          </ul>
+          <p class="tier-for">{t.for}</p>
+          <p class="tier-note">{t.note}</p>
           <a
             href="https://siloegenerator.chumbo.io/registro"
-            class={`btn plan-btn${plan.highlighted ? ' btn-primary' : ' btn-outline-dark'}`}
+            class={`btn tier-btn${t.tag ? ' btn-primary' : ' btn-outline-dark'}`}
             target="_blank"
             rel="noopener"
           >
-            {plan.cta}
+            Empezar con {t.name}
           </a>
         </div>
       ))}
     </div>
 
-    <p class="pricing-note">
-      ¿Dudas? Escríbenos a{' '}
-      <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>
-      {' '}y te respondemos sin bots ni formularios de 47 campos.
-    </p>
+    <div class="pricing-cta-note">
+      <p>
+        ¿No encaja ningún plan o tienes más de 5 establecimientos?{' '}
+        <a href="mailto:soporte@chumbo.io">Escríbenos</a>
+        {' '}y lo resolvemos sin formularios de 12 campos.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -127,20 +105,50 @@ const plans = [
 .pricing-sub {
   font-size: 1.05rem;
   color: var(--text-muted);
-  max-width: 520px;
+  max-width: 600px;
+  margin-bottom: 2rem;
+  line-height: 1.75;
+}
+.pricing-sub strong { color: var(--text-dark); font-weight: 600; }
+
+/* Beta notice */
+.beta-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: .75rem;
+  background: rgba(155,29,53,.06);
+  border: 1px solid rgba(155,29,53,.2);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
   margin-bottom: 3rem;
-  line-height: 1.7;
+  font-size: .875rem;
+  color: var(--text-dark);
+  max-width: 640px;
+  line-height: 1.6;
+}
+.beta-notice strong { color: var(--chumbo-skin); }
+.beta-dot {
+  flex-shrink: 0;
+  margin-top: 4px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--chumbo-skin);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .35; }
 }
 
-.plans-grid {
+/* Tiers grid */
+.tiers-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
-  align-items: start;
   margin-bottom: 2.5rem;
 }
 
-.plan-card {
+.tier-card {
   position: relative;
   background: var(--bg-white);
   border: 1px solid var(--border);
@@ -149,17 +157,17 @@ const plans = [
   box-shadow: var(--shadow-sm);
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   transition: box-shadow .2s;
 }
-.plan-card:hover { box-shadow: var(--shadow-md); }
+.tier-card:hover { box-shadow: var(--shadow-md); }
 
-.plan-card--highlighted {
+.tier-card--featured {
   border-color: var(--chumbo-skin);
   box-shadow: 0 0 0 2px var(--chumbo-skin), var(--shadow-md);
 }
 
-.plan-badge {
+.tier-tag {
   position: absolute;
   top: -13px;
   left: 50%;
@@ -167,77 +175,67 @@ const plans = [
   background: var(--chumbo-skin);
   color: #fff;
   font-family: var(--font-heading);
-  font-size: .75rem;
+  font-size: .72rem;
   font-weight: 600;
   letter-spacing: .06em;
   text-transform: uppercase;
   padding: .25rem .85rem;
   border-radius: 999px;
+  white-space: nowrap;
 }
 
-.plan-name {
-  font-size: 1.1rem;
+.tier-name {
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-dark);
-  margin-bottom: .25rem;
 }
 
-.plan-price {
+.tier-price {
   display: flex;
   align-items: baseline;
   gap: .25rem;
-  margin-bottom: .5rem;
 }
-.plan-amount {
+.tier-amount {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   font-weight: 700;
   color: var(--text-dark);
+  line-height: 1;
 }
-.plan-period {
+.tier-period {
   font-size: .9rem;
   color: var(--text-muted);
 }
 
-.plan-desc {
-  font-size: .9rem;
-  color: var(--text-muted);
-  line-height: 1.5;
+.tier-for {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--chumbo-skin);
+  line-height: 1.3;
 }
 
-.plan-features {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: .6rem;
+.tier-note {
+  font-size: .875rem;
+  color: var(--text-muted);
+  line-height: 1.6;
   flex: 1;
 }
-.plan-features li {
-  display: flex;
-  align-items: flex-start;
-  gap: .6rem;
-  font-size: .9rem;
-  color: var(--text-dark);
-  line-height: 1.4;
-}
-.plan-features svg {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--chumbo-skin);
-}
 
-.plan-btn {
+.tier-btn {
   width: 100%;
   justify-content: center;
   margin-top: auto;
 }
 
-.pricing-note {
+.pricing-cta-note {
+  text-align: center;
   font-size: .875rem;
   color: var(--text-muted);
-  text-align: center;
+  border-top: 1px solid var(--border);
+  padding-top: 1.75rem;
 }
-.pricing-note a {
+.pricing-cta-note a {
   color: var(--chumbo-skin);
   font-weight: 500;
 }

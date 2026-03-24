@@ -7,7 +7,7 @@ import Footer from '../components/Footer.astro';
 
 <Layout
   title="Precios — chumbo.io"
-  description="Planes para Siloe-Generator: Starter 69€/mes, Pro 129€/mes, Enterprise 299€/mes. Sin permanencia, cancela cuando quieras. Gestión de piscinas conforme al RD 742/2013."
+  description="Planes para Siloe-Generator: desde 69 €/mes. Beta pública activa, acceso completo en todos los planes. Sin permanencia."
 >
   <Nav />
   <main>
@@ -17,49 +17,61 @@ import Footer from '../components/Footer.astro';
       <div class="container">
         <h2>Preguntas frecuentes</h2>
         <div class="faq-grid">
+
           <div class="faq-item">
-            <h3>¿Hay periodo de prueba?</h3>
+            <h3>¿Qué incluye cada plan ahora mismo?</h3>
             <p>
-              Puedes explorar la aplicación antes de contratar. Contacta en
-              <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a> y
-              lo gestionamos sin burocracia.
+              Durante la beta pública, <strong>todos los planes incluyen acceso completo</strong>
+              a Siloe-Generator: registro de lecturas diarias, generación de XML para SILOE,
+              gestión de muestras de laboratorio y multi-piscina.
+              La diferenciación definitiva entre planes (por número de establecimientos,
+              límites, etc.) está en proceso de cierre.
+              Si tienes dudas sobre lo que necesitas, escríbenos.
             </p>
           </div>
+
           <div class="faq-item">
             <h3>¿Puedo cambiar de plan?</h3>
             <p>
-              Sí, en cualquier momento. El cambio es inmediato y el cobro
-              se prorratea automáticamente via Stripe.
+              Sí, en cualquier momento. El cambio es inmediato
+              y el cobro se prorratea via Stripe.
             </p>
           </div>
+
           <div class="faq-item">
             <h3>¿Cómo funciona el pago?</h3>
             <p>
               Suscripción mensual con tarjeta de crédito/débito a través de Stripe.
-              Seguro, sin guardar datos de tarjeta en nuestros servidores.
+              Sin guardar datos de tarjeta en nuestros servidores.
+              Recibirás factura automática por cada cargo.
             </p>
           </div>
+
           <div class="faq-item">
-            <h3>¿Puedo cancelar?</h3>
+            <h3>¿Puedo cancelar cuando quiera?</h3>
             <p>
-              Sí, cuando quieras y sin penalizaciones. La cuenta se mantiene
-              activa hasta el fin del periodo pagado.
+              Sí, sin penalizaciones y sin llamadas de retención.
+              La cuenta se mantiene activa hasta el final del periodo pagado.
             </p>
           </div>
+
           <div class="faq-item">
             <h3>¿Qué pasa con mis datos si cancelo?</h3>
             <p>
-              Tus registros siguen accesibles 30 días tras la cancelación para
-              que puedas exportarlos. Después se eliminan de forma segura.
+              Tus registros siguen accesibles 30 días tras la cancelación para que
+              puedas exportarlos. Después se eliminan de forma segura.
             </p>
           </div>
+
           <div class="faq-item">
-            <h3>¿Emiten facturas?</h3>
+            <h3>Tengo más de 5 establecimientos. ¿Qué hago?</h3>
             <p>
-              Sí. Stripe genera facturas automáticas para cada cargo. Si
-              necesitas algo específico, escríbenos.
+              Escríbenos a <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>.
+              El Enterprise cubre instalaciones ilimitadas y podemos ajustar
+              lo que necesites.
             </p>
           </div>
+
         </div>
       </div>
     </section>
@@ -99,9 +111,10 @@ import Footer from '../components/Footer.astro';
   line-height: 1.65;
 }
 
+.faq-item strong { color: var(--text-dark); font-weight: 600; }
+
 .faq-item a {
   color: var(--chumbo-skin);
   font-weight: 500;
 }
 </style>
-
