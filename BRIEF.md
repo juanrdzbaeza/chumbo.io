@@ -90,16 +90,28 @@ soporte@chumbo.io              →  redirige a email personal del fundador
 
 ### Assets de logo creados
 
+> ⚠️ **Los ficheros ya existen en `public/`** — el agente debe usarlos tal cual, no recrearlos.
+
 ```
 public/
-├── icon.svg    ← Solo el fruto (200×270 viewBox) — favicon, app icon, redes
+├── icon.svg    ← Solo el fruto (200×270 viewBox) — favicon, app icon, redes sociales
 └── logo.svg    ← Horizontal: icono + wordmark "chumbo.io" (700×270 viewBox)
 ```
 
-**Lógica del SVG:**
-1. Se dibuja la piel del fruto (`#9B1D35`) con una `<mask>` que recorta el mordisco → **hueco transparente limpio, igual que el logo de Apple** — muestra el fondo a través del recorte
-2. Las aréolas (puntos de espinas) siguen el patrón diagonal natural de la *Opuntia*, recortadas al contorno del fruto y enmascaradas en la zona del mordisco
-3. La corona superior (sépalos secos) da el detalle botánico característico
+**Estado final del icono:**
+- Forma: trapecio redondeado — top casi plano y ancho, bottom ligeramente más estrecho
+- Mordisco: hueco transparente circular en la parte superior derecha (continuidad C1 perfecta en todas las uniones)
+- **13 aréolas** en patrón diagonal (el patrón real de la *Opuntia*) — número con significado personal para el fundador
+- Tallito + hojita separados del fruto por un gap de 8px, estilo Apple
+- Todo en un único color `#9B1D35` → funciona sobre cualquier fondo
+
+**Sobre las variedades de color del higo chumbo:**
+En la naturaleza el fruto viene en tres variedades principales:
+- 🟢 **Verde** — inmaduro, `#4A7C59` aprox.
+- 🟠 **Naranja** — semimaduro, `#D4600A` aprox.
+- 🔴 **Colorao** — maduro, `#9B1D35` — **ésta es la variante de marca elegida**
+
+El logo usa la variante colorada (la más madura, la más intensa). Para campañas o contextos específicos se pueden usar las otras variedades como accent — todas son "chumbo".
 
 ### Paleta
 
@@ -220,7 +232,9 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 ### Por qué "chumbo"
 
-> El nombre es una referencia directa, sin filtros — como el plomo (chumbo en portugués/argot) que va al grano. Software que hace lo que dice, sin adornos.
+> El **higo chumbo** (*Opuntia ficus-indica*) es el fruto de la chumbera — planta típica de Canarias y el sur de España. Por fuera está lleno de espinas y parece difícil de manejar. Por dentro es dulce, jugoso y nutritivo. Es exactamente la metáfora de lo que queremos ser: software que parece directo y sin adornos, pero que por dentro entrega valor real.
+>
+> Además es auténtico, canario, y nadie en el mundo tech tiene un higo chumbo como logo. Eso ya es suficiente razón.
 
 ### Estado actual del negocio
 
@@ -233,14 +247,23 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 ## 10. Entregables esperados del agente
 
-1. **Inicializar proyecto** Astro (o el stack elegido) en `/home/juan/Documentos/IdeaProjects/chumbo.io`
-2. **Crear estructura de ficheros** completa
-3. **Implementar todas las secciones** del Home descritas en §6
-4. **Implementar `/precios`** con las 3 cards (Starter/Pro/Enterprise)
-5. **Implementar `/legal`** con aviso legal básico para España (adaptable)
-6. **Footer** con © chumbo.io, enlaces legales, `soporte@chumbo.io`
-7. **README.md** del proyecto con instrucciones de desarrollo y despliegue
-8. **`package.json`** con scripts `dev`, `build`, `preview`
+> **Estado actual del proyecto** (ya hecho, no repetir):
+> - ✅ Git inicializado en `main`
+> - ✅ `public/icon.svg` y `public/logo.svg` creados y finalizados
+> - ✅ `BRIEF.md` y `README.md` en la raíz
+
+**Lo que queda por hacer:**
+
+1. **Inicializar Astro** dentro del directorio existente `/home/juan/Documentos/IdeaProjects/chumbo.io` sin sobreescribir los ficheros ya presentes (`public/`, `BRIEF.md`, `README.md`)
+2. **Mover/integrar** `public/icon.svg` y `public/logo.svg` en la estructura de Astro
+3. **Generar favicon** a partir de `public/icon.svg` — `favicon.ico` + `favicon.svg` + `apple-touch-icon.png`
+4. **Implementar todas las secciones** del Home descritas en §6
+5. **Implementar `/precios`** con las 3 cards (Starter/Pro/Enterprise) y CTA → `https://siloegenerator.chumbo.io/precios`
+6. **Implementar `/legal`** con aviso legal básico para España (LOPD/RGPD, adaptable)
+7. **Footer** con © chumbo.io, enlaces legales, `soporte@chumbo.io`
+8. **Instalar fuentes** Space Grotesk + Inter vía Fontsource (self-hosted)
+9. **Actualizar `README.md`** con instrucciones de desarrollo y despliegue en Cloudflare Pages
+10. **`package.json`** con scripts `dev`, `build`, `preview`
 
 ---
 
