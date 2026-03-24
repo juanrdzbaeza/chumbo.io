@@ -1,0 +1,110 @@
+---
+const stats = [
+  { value: 'Beta pública',   label: 'En producción desde marzo 2026' },
+  { value: 'RD 742/2013',   label: '100% conforme con la normativa vigente' },
+  { value: 'XML oficial',   label: 'Compatible con el sistema SILOE de Sanidad' },
+  { value: 'Railway + Stripe', label: 'Infraestructura robusta, pagos seguros' },
+];
+---
+
+<section class="social-proof">
+  <div class="container">
+    <div class="sp-header">
+      <span class="section-label">Estado actual</span>
+      <h2>Ya en producción con clientes reales</h2>
+      <p>
+        No es un mockup ni una promesa. Es software funcionando, con
+        clientes reales gestionando sus piscinas ahora mismo.
+      </p>
+    </div>
+
+    <div class="sp-grid">
+      {stats.map(s => (
+        <div class="sp-stat">
+          <div class="sp-value">{s.value}</div>
+          <div class="sp-label">{s.label}</div>
+        </div>
+      ))}
+    </div>
+
+    <div class="sp-quote">
+      <blockquote>
+        "Software que funciona. Sin humo."
+      </blockquote>
+      <cite>— La promesa de chumbo.io</cite>
+    </div>
+  </div>
+</section>
+
+<style>
+.social-proof {
+  background: var(--chumbo-skin);
+  padding: 5.5rem 0;
+}
+
+.sp-header {
+  margin-bottom: 3rem;
+}
+.sp-header .section-label { color: var(--chumbo-flesh); }
+
+.sp-header h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: #fff;
+  margin-bottom: .75rem;
+}
+
+.sp-header p {
+  font-size: 1rem;
+  color: rgba(255,255,255,.75);
+  max-width: 480px;
+}
+
+.sp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 3.5rem;
+}
+
+.sp-stat {
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem;
+}
+
+.sp-value {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--chumbo-flesh);
+  margin-bottom: .35rem;
+}
+
+.sp-label {
+  font-size: .875rem;
+  color: rgba(255,255,255,.7);
+  line-height: 1.4;
+}
+
+.sp-quote {
+  border-left: 3px solid var(--chumbo-flesh);
+  padding-left: 1.5rem;
+}
+
+blockquote {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  font-style: italic;
+  margin-bottom: .5rem;
+}
+
+cite {
+  font-size: .875rem;
+  color: rgba(255,255,255,.6);
+  font-style: normal;
+}
+</style>
+

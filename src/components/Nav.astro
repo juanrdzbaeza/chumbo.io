@@ -1,0 +1,129 @@
+---
+const links = [
+  { href: '/#producto', label: 'Producto' },
+  { href: '/precios', label: 'Precios' },
+  { href: '/contacto', label: 'Contacto' },
+];
+---
+
+<nav>
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo" aria-label="chumbo.io — inicio">
+      <img src="/logo.svg" alt="chumbo.io" height="42" width="auto" />
+    </a>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menú" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-menu" id="nav-menu">
+      <ul class="nav-links">
+        {links.map(l => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+      <a href="https://siloegenerator.chumbo.io" class="btn btn-primary nav-cta" target="_blank" rel="noopener">
+        Acceder →
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('nav-toggle')!;
+  const menu   = document.getElementById('nav-menu')!;
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>
+
+<style>
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(17,17,17,.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  gap: 2rem;
+}
+
+.nav-logo img {
+  height: 36px;
+  width: auto;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 1.75rem;
+}
+
+.nav-links a {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: .95rem;
+  color: var(--text-light);
+  transition: color .15s;
+}
+.nav-links a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.nav-cta { padding: .5rem 1.25rem; font-size: .9rem; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: .5rem;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform .2s, opacity .2s;
+}
+
+@media (max-width: 680px) {
+  .nav-toggle { display: flex; }
+
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 64px;
+    left: 0; right: 0;
+    background: #111;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    gap: 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  .nav-menu.is-open { display: flex; }
+  .nav-links { flex-direction: column; gap: .75rem; }
+  .nav-cta { width: 100%; justify-content: center; }
+}
+</style>
+

@@ -1,0 +1,117 @@
+---
+---
+
+<section class="contact" id="contacto">
+  <div class="container contact-inner">
+    <div class="contact-text">
+      <span class="section-label section-label--dark">Contacto</span>
+      <h2>¿Preguntas? Escríbenos sin miedo</h2>
+      <p>
+        No hay chatbot, no hay formulario de 12 campos, no hay ticket que
+        espera 3 días laborables. Hay una persona que lee el correo y responde.
+      </p>
+      <a href="mailto:soporte@chumbo.io" class="contact-email">
+        soporte@chumbo.io
+      </a>
+    </div>
+
+    <div class="contact-cta">
+      <div class="cta-card">
+        <p class="cta-card-title">¿Listo para probarlo?</p>
+        <p class="cta-card-desc">
+          Regístrate en Siloe-Generator y empieza a gestionar tus piscinas hoy.
+        </p>
+        <a
+          href="https://siloegenerator.chumbo.io/registro"
+          class="btn btn-primary"
+          target="_blank"
+          rel="noopener"
+        >
+          Crear cuenta →
+        </a>
+        <p class="cta-card-note">Planes desde 69 €/mes · Sin permanencia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.contact {
+  background: var(--bg-light);
+  padding: 6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.contact-text h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text-dark);
+  margin-bottom: 1rem;
+}
+
+.contact-text p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  max-width: 420px;
+}
+
+.contact-email {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--chumbo-skin);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color .15s;
+}
+.contact-email:hover {
+  border-color: var(--chumbo-skin);
+  text-decoration: none;
+}
+
+.cta-card {
+  background: var(--bg-dark);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.cta-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.cta-card-desc {
+  font-size: .95rem;
+  color: #9ca3af;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cta-card .btn { margin-top: .5rem; align-self: flex-start; }
+
+.cta-card-note {
+  font-size: .8rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+@media (max-width: 680px) {
+  .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+</style>
+

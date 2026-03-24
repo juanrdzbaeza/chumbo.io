@@ -1,0 +1,245 @@
+---
+export interface Props {
+  standalone?: boolean; // true en /precios, false en home
+}
+const { standalone = false } = Astro.props;
+
+const plans = [
+  {
+    name: 'Starter',
+    price: '69',
+    desc: 'Para establecimientos individuales que necesitan cumplir sin complicaciones.',
+    features: [
+      '1 establecimiento',
+      'Hasta 10 piscinas',
+      'Registro diario ilimitado',
+      'Generación de XML para SILOE',
+      'Gestión de muestras de laboratorio',
+      'Soporte por email',
+    ],
+    cta: 'Empezar con Starter',
+    highlighted: false,
+  },
+  {
+    name: 'Pro',
+    price: '129',
+    desc: 'Para cadenas pequeñas o gestoras con varios establecimientos.',
+    features: [
+      'Hasta 5 establecimientos',
+      'Piscinas ilimitadas por establecimiento',
+      'Registro diario ilimitado',
+      'Generación de XML para SILOE',
+      'Gestión de muestras de laboratorio',
+      'Historial completo exportable',
+      'Soporte prioritario por email',
+    ],
+    cta: 'Empezar con Pro',
+    highlighted: true,
+  },
+  {
+    name: 'Enterprise',
+    price: '299',
+    desc: 'Para grandes cadenas hoteleras o gestoras sin límite de instalaciones.',
+    features: [
+      'Establecimientos ilimitados',
+      'Piscinas ilimitadas',
+      'Registro diario ilimitado',
+      'Generación de XML para SILOE',
+      'Gestión de muestras de laboratorio',
+      'Historial completo exportable',
+      'Onboarding personalizado',
+      'Soporte prioritario directo',
+    ],
+    cta: 'Contactar para Enterprise',
+    highlighted: false,
+  },
+];
+---
+
+<section class="pricing" id="precios">
+  <div class="container">
+    {!standalone && <span class="section-label section-label--dark">Precios</span>}
+    <h2 class="pricing-title">
+      {standalone ? 'Planes y precios' : 'Sin letra pequeña'}
+    </h2>
+    <p class="pricing-sub">
+      Suscripción mensual. Sin permanencia. Cancela cuando quieras.
+      {standalone && <><br />Todos los planes incluyen acceso completo — no hay funcionalidades ocultas.</>}
+    </p>
+
+    <div class="plans-grid">
+      {plans.map(plan => (
+        <div class={`plan-card${plan.highlighted ? ' plan-card--highlighted' : ''}`}>
+          {plan.highlighted && (
+            <div class="plan-badge">Más popular</div>
+          )}
+          <div class="plan-header">
+            <h3 class="plan-name">{plan.name}</h3>
+            <div class="plan-price">
+              <span class="plan-amount">{plan.price} €</span>
+              <span class="plan-period">/mes</span>
+            </div>
+            <p class="plan-desc">{plan.desc}</p>
+          </div>
+          <ul class="plan-features">
+            {plan.features.map(f => (
+              <li>
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                  <polyline points="2,9 6,13 14,4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="https://siloegenerator.chumbo.io/registro"
+            class={`btn plan-btn${plan.highlighted ? ' btn-primary' : ' btn-outline-dark'}`}
+            target="_blank"
+            rel="noopener"
+          >
+            {plan.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+
+    <p class="pricing-note">
+      ¿Dudas? Escríbenos a{' '}
+      <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>
+      {' '}y te respondemos sin bots ni formularios de 47 campos.
+    </p>
+  </div>
+</section>
+
+<style>
+.pricing {
+  background: var(--bg-light);
+  padding: 6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.pricing-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--text-dark);
+  margin-bottom: .75rem;
+}
+
+.pricing-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  margin-bottom: 3rem;
+  line-height: 1.7;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+}
+
+.plan-card {
+  position: relative;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: box-shadow .2s;
+}
+.plan-card:hover { box-shadow: var(--shadow-md); }
+
+.plan-card--highlighted {
+  border-color: var(--chumbo-skin);
+  box-shadow: 0 0 0 2px var(--chumbo-skin), var(--shadow-md);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--chumbo-skin);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: .25rem .85rem;
+  border-radius: 999px;
+}
+
+.plan-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: .25rem;
+}
+
+.plan-price {
+  display: flex;
+  align-items: baseline;
+  gap: .25rem;
+  margin-bottom: .5rem;
+}
+.plan-amount {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+.plan-period {
+  font-size: .9rem;
+  color: var(--text-muted);
+}
+
+.plan-desc {
+  font-size: .9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  flex: 1;
+}
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: .6rem;
+  font-size: .9rem;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+.plan-features svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--chumbo-skin);
+}
+
+.plan-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.pricing-note {
+  font-size: .875rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+.pricing-note a {
+  color: var(--chumbo-skin);
+  font-weight: 500;
+}
+</style>
+

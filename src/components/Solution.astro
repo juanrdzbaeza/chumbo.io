@@ -1,0 +1,147 @@
+---
+const features = [
+  {
+    icon: '💧',
+    title: 'Registro diario sin dolor',
+    desc: 'Introduce los parámetros físico-químicos de cada piscina en segundos. Cloro, pH, temperatura, turbiedad... todo en un formulario pensado para el personal que lo usa cada día.',
+  },
+  {
+    icon: '🗂️',
+    title: 'XML oficial para SILOE',
+    desc: 'Genera automáticamente el fichero XML compatible con el sistema SILOE del Ministerio de Sanidad. Sin copiar datos, sin formatos raros, sin errores de exportación.',
+  },
+  {
+    icon: '🧪',
+    title: 'Gestión de muestras de laboratorio',
+    desc: 'Registra las analíticas de laboratorio, gestiona los resultados y mantén el historial completo en un solo sitio. Inspecciones sin sorpresas.',
+  },
+  {
+    icon: '🏢',
+    title: 'Multi-establecimiento, multi-piscina',
+    desc: 'Gestiona varios hoteles, campings o instalaciones desde una única cuenta. Cada establecimiento con sus piscinas y sus datos, perfectamente separados.',
+  },
+  {
+    icon: '☁️',
+    title: 'En la nube, sin instalar nada',
+    desc: 'Funciona desde el navegador. Sin instalaciones, sin servidores que mantener, sin backups manuales. Tus datos siempre disponibles y seguros.',
+  },
+  {
+    icon: '🔒',
+    title: 'Cumplimiento garantizado',
+    desc: 'Diseñado específicamente para el RD 742/2013. Cada campo, cada formato, cada declaración: conforme a lo que exige Sanidad.',
+  },
+];
+---
+
+<section class="solution" id="producto">
+  <div class="container">
+    <span class="section-label">La solución</span>
+    <div class="solution-header">
+      <h2>
+        Siloe-Generator:<br />
+        el libro digital de piscinas
+      </h2>
+      <p>
+        Sustituye el papel y el Excel de una vez por todas.
+        Cumplimiento legal automático, datos siempre a mano.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      {features.map(f => (
+        <div class="feature-card">
+          <div class="feature-icon">{f.icon}</div>
+          <h3>{f.title}</h3>
+          <p>{f.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="solution-cta">
+      <a
+        href="https://siloegenerator.chumbo.io"
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener"
+      >
+        Probar Siloe-Generator →
+      </a>
+      <a href="/precios" class="btn btn-outline-dark">Ver planes y precios</a>
+    </div>
+  </div>
+</section>
+
+<style>
+.solution {
+  background: var(--bg-white);
+  padding: 6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.solution-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 3rem;
+}
+
+.solution-header h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  color: var(--text-dark);
+}
+
+.solution-header p {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 380px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+}
+
+.feature-card {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+.feature-card:hover {
+  border-color: var(--chumbo-skin);
+  box-shadow: var(--shadow-sm);
+}
+
+.feature-icon {
+  font-size: 1.75rem;
+  margin-bottom: .875rem;
+}
+
+.feature-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: .5rem;
+  color: var(--text-dark);
+}
+.feature-card p {
+  font-size: .9rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.solution-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+@media (max-width: 640px) {
+  .solution-header { grid-template-columns: 1fr; gap: 1rem; }
+}
+</style>
+

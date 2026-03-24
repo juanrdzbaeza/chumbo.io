@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import PricingCards from '../components/PricingCards.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Precios — chumbo.io"
+  description="Planes para Siloe-Generator: Starter 69€/mes, Pro 129€/mes, Enterprise 299€/mes. Sin permanencia, cancela cuando quieras. Gestión de piscinas conforme al RD 742/2013."
+>
+  <Nav />
+  <main>
+    <PricingCards standalone={true} />
+
+    <section class="faq">
+      <div class="container">
+        <h2>Preguntas frecuentes</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <h3>¿Hay periodo de prueba?</h3>
+            <p>
+              Puedes explorar la aplicación antes de contratar. Contacta en
+              <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a> y
+              lo gestionamos sin burocracia.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Puedo cambiar de plan?</h3>
+            <p>
+              Sí, en cualquier momento. El cambio es inmediato y el cobro
+              se prorratea automáticamente via Stripe.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Cómo funciona el pago?</h3>
+            <p>
+              Suscripción mensual con tarjeta de crédito/débito a través de Stripe.
+              Seguro, sin guardar datos de tarjeta en nuestros servidores.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Puedo cancelar?</h3>
+            <p>
+              Sí, cuando quieras y sin penalizaciones. La cuenta se mantiene
+              activa hasta el fin del periodo pagado.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Qué pasa con mis datos si cancelo?</h3>
+            <p>
+              Tus registros siguen accesibles 30 días tras la cancelación para
+              que puedas exportarlos. Después se eliminan de forma segura.
+            </p>
+          </div>
+          <div class="faq-item">
+            <h3>¿Emiten facturas?</h3>
+            <p>
+              Sí. Stripe genera facturas automáticas para cada cargo. Si
+              necesitas algo específico, escríbenos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+.faq {
+  background: var(--bg-white);
+  padding: 5rem 0 6rem;
+  border-top: 1px solid var(--border);
+}
+
+.faq h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.faq-item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: .5rem;
+}
+
+.faq-item p {
+  font-size: .925rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.faq-item a {
+  color: var(--chumbo-skin);
+  font-weight: 500;
+}
+</style>
+
