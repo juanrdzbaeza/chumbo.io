@@ -1,7 +1,8 @@
 # BRIEF — Web corporativa chumbo.io
 
 > 📋 Este fichero es el **contexto completo** para construir la web corporativa de chumbo.io.
-> Dáselo al agente/copilot que vaya a implementar el proyecto desde cero.
+> Dáselo al agente/copilot que vaya a implementar o actualizar el proyecto.
+> **Última actualización: 25 marzo 2026**
 
 ---
 
@@ -12,10 +13,10 @@
 | **Nombre** | chumbo.io |
 | **Tipo** | Software startup española — indie/bootstrapped |
 | **Fundador** | Juan (solo founder) |
-| **Email principal** | soporte@chumbo.io |
+| **Email soporte** | soporte@chumbo.io (redirige a email personal del fundador) |
 | **Dominio** | chumbo.io (registrado en Cloudflare) |
 | **Personalidad de marca** | Directa, un pelín gamberra, sin florituras corporativas. Cercana, honesta, técnica pero accesible. Anti-marketing de humo. |
-| **Tagline candidato** | *"Software que funciona. Sin humo."* / *"Herramientas serias para gente seria"* / o algo mejor si se te ocurre — manteniendo el tono. |
+| **Tagline candidato** | *"Software que funciona. Sin humo."* |
 
 ### Tono de escritura
 
@@ -34,39 +35,68 @@
 | **Nombre** | SILOE Generator |
 | **Subtítulo** | Libro Digital de Piscinas |
 | **URL producción** | https://siloegenerator.chumbo.io |
+| **URL API** | https://api.chumbo.io |
+| **Versión actual** | `beta-v0.0.5-20260325` |
 | **Qué hace** | Sustituye el libro de registro en papel/Excel de una piscina. Gestiona lecturas diarias de parámetros físico-químicos, genera el XML oficial para el sistema SILOE de Sanidad y gestiona muestras de laboratorio. |
 | **Marco legal** | Real Decreto 742/2013, de 27 de septiembre — criterios técnico-sanitarios de piscinas |
 | **Clientes objetivo** | Hoteles, campings, clubes deportivos, comunidades de vecinos — cualquier establecimiento con piscina de uso público en España |
 | **Stack** | Vue 3 + Vite · Node.js/Express · PostgreSQL · Railway · Stripe · Resend |
 
-### Planes de precio (Stripe — modo test activo)
+### Planes de precio ✅ confirmados en Stripe
 
-| Plan | Precio | Para quién |
-|---|---|---|
-| **Starter** | 69 €/mes | 1 establecimiento, hasta 10 piscinas |
-| **Pro** | 129 €/mes | Hasta 5 establecimientos |
-| **Enterprise** | 299 €/mes | Sin límite de establecimientos |
+| Plan | Precio | Límites | Para quién |
+|---|---|---|---|
+| 🌵 **Beta gratuita** | **Gratis** | 1 establecimiento · 1 piscina | Acceso público temporal durante la beta — sin tarjeta |
+| **Starter** | 69 €/mes | Hasta 2 piscinas | Pequeño establecimiento individual |
+| **Pro** | 129 €/mes | Hasta 6 piscinas | Establecimiento mediano o varios hoteles |
+| **Enterprise** | 299 €/mes | Sin límite | Cadenas hoteleras, empresas de mantenimiento |
 
-### Estado del producto (marzo 2026)
-- ✅ Registro + confirmación por email (Resend desde `noreply@siloegenerator.chumbo.io`)
-- ✅ Pago con Stripe (suscripción mensual)
+> **Importante sobre la Beta gratuita:** Es temporal durante la beta pública. El usuario puede hacer upgrade a cualquier plan de pago sin perder sus datos (flujo transparente vía Stripe).
+
+### Flujo de registro y pago
+
+1. Usuario elige plan en `/precios` y rellena el formulario
+2. Recibe email de confirmación desde `noreply@siloegenerator.chumbo.io` (vía Resend)
+3. **Si beta:** clic en el enlace → cuenta activada directamente (sin Stripe)
+4. **Si plan de pago:** clic en el enlace → redirige a Stripe Checkout → pago → webhook activa la cuenta
+5. Usuario ya puede iniciar sesión en `https://siloegenerator.chumbo.io`
+
+### Estado del producto — 25 marzo 2026
+
+- ✅ Registro con confirmación por email (Resend desde `noreply@siloegenerator.chumbo.io`)
+- ✅ **Beta pública gratuita** (1 hotel, 1 piscina, sin tarjeta)
+- ✅ Upgrade transparente de beta a plan de pago (datos conservados)
+- ✅ Pago con Stripe (suscripción mensual, webhooks configurados)
+- ✅ Portal de facturación Stripe para usuarios de pago
 - ✅ Gestión completa de lecturas diarias y parámetros de laboratorio
-- ✅ Generación de XML compatible SILOE
-- ✅ Multi-tenant, multi-piscina
-- ✅ En producción en Railway
-- 🔄 Beta pública (versión `beta-v0.0.4-20260324`)
+- ✅ Análisis de laboratorio
+- ✅ Generación de XML compatible SILOE (RD 742/2013)
+- ✅ Multi-tenant, multi-hotel, multi-piscina
+- ✅ Límites por plan aplicados en backend (piscinas y hoteles)
+- ✅ Cron job de limpieza de registros huérfanos
+- ✅ Descarga de plantilla XLSX propia de Siloe-Generator
+- ✅ PWA instalable (service worker, manifest)
+- ✅ En producción en Railway (EU West)
+- ✅ Dominios propios vía Cloudflare (`siloegenerator.chumbo.io`, `api.chumbo.io`)
+- ✅ Footer con versión, aviso legal, RD 742/2013, contacto
+- 🔄 Pendiente: feedback de primeros usuarios beta reales
 
 ---
 
-## 3. Infraestructura DNS (Cloudflare)
+## 3. Infraestructura DNS (Cloudflare) ✅ confirmada y funcionando
 
 ```
-chumbo.io                      →  web corporativa (este proyecto)
-siloegenerator.chumbo.io       →  app frontend (Railway)
-api.chumbo.io                  →  backend API (Railway)
-noreply@siloegenerator.chumbo.io → emails transaccionales (Resend/SES)
-soporte@chumbo.io              →  redirige a email personal del fundador
+chumbo.io                          →  web corporativa (este proyecto)
+siloegenerator.chumbo.io           →  app frontend (Railway · CNAME)
+api.chumbo.io                      →  backend API (Railway · CNAME)
+noreply@siloegenerator.chumbo.io   →  emails transaccionales (Resend · SPF+DKIM verificados)
+soporte@chumbo.io                  →  redirige a email personal del fundador (Cloudflare Email Routing)
 ```
+
+**Emails transaccionales:**
+- Proveedor: **Resend** (resend.com) — dominio verificado con SPF + DKIM en Cloudflare
+- Remitente: `SILOE Generator <noreply@siloegenerator.chumbo.io>`
+- Tipos: confirmación de registro (diferenciado: beta en verde / pago en azul)
 
 ---
 
@@ -82,15 +112,7 @@ soporte@chumbo.io              →  redirige a email personal del fundador
 - 🍊 **Por dentro:** dulce, jugoso, valioso → software que realmente funciona
 - 🍎 **El mordisco:** homenaje consciente al logo de Apple, pero con identidad 100% española/canaria
 
-**Por qué funciona:**
-- Único en el mundo tech — nadie tiene un higo chumbo como logo
-- Auténtico — conecta con las raíces geográficas (Canarias / sur de España)
-- Visual — silueta inconfundible, funciona a cualquier tamaño
-- Gambero sin esfuerzo — la idea de morderle a un chumbo con espinas ya lo dice todo
-
-### Assets de logo creados
-
-> ⚠️ **Los ficheros ya existen en `public/`** — el agente debe usarlos tal cual, no recrearlos.
+### Assets de logo — ⚠️ ya existen en `public/`, NO recrear
 
 ```
 public/
@@ -100,31 +122,23 @@ public/
 
 **Estado final del icono:**
 - Forma: trapecio redondeado — top casi plano y ancho, bottom ligeramente más estrecho
-- Mordisco: hueco transparente circular en la parte superior derecha (continuidad C1 perfecta en todas las uniones)
-- **13 aréolas** en patrón diagonal (el patrón real de la *Opuntia*) — número con significado personal para el fundador
+- Mordisco: hueco transparente circular en la parte superior derecha (continuidad C1 perfecta)
+- **13 aréolas** en patrón diagonal (número con significado personal para el fundador)
 - Tallito + hojita separados del fruto por un gap de 8px, estilo Apple
-- Todo en un único color `#9B1D35` → funciona sobre cualquier fondo
-
-**Sobre las variedades de color del higo chumbo:**
-En la naturaleza el fruto viene en tres variedades principales:
-- 🟢 **Verde** — inmaduro, `#4A7C59` aprox.
-- 🟠 **Naranja** — semimaduro, `#D4600A` aprox.
-- 🔴 **Colorao** — maduro, `#9B1D35` — **ésta es la variante de marca elegida**
-
-El logo usa la variante colorada (la más madura, la más intensa). Para campañas o contextos específicos se pueden usar las otras variedades como accent — todas son "chumbo".
+- Color único: `#9B1D35` (variante colorada/madura)
 
 ### Paleta
 
 | Token | Hex | Rol |
 |---|---|---|
-| `--chumbo-skin` | `#9B1D35` | Piel del fruto · "chumbo" en wordmark · color principal de marca |
-| `--chumbo-flesh` | `#F4A523` | Pulpa interior · ".io" en wordmark · accent/CTA |
-| `--chumbo-dark` | `#6E1225` | Corona · versión oscura para hover / sombras |
+| `--chumbo-skin` | `#9B1D35` | Piel del fruto · "chumbo" en wordmark · color principal |
+| `--chumbo-flesh` | `#F4A523` | Pulpa · ".io" en wordmark · accent/CTA |
+| `--chumbo-dark` | `#6E1225` | Corona · hover / sombras |
 | `--chumbo-spine` | `#7A1528` | Aréolas · detalles sutiles |
 | `--bg-dark` | `#111111` | Fondos oscuros (hero, secciones de impacto) |
 | `--bg-light` | `#FAFAF8` | Fondos claros (secciones de contenido) |
 
-> 💡 El `.io` del wordmark usa `#F4A523` (la pulpa) — crea coherencia visual entre el mordisco del icono y el texto. Es el detalle de diseño que lo une todo.
+> 💡 El `.io` del wordmark usa `#F4A523` — crea coherencia visual con el mordisco del icono.
 
 ### Tipografía
 
@@ -134,82 +148,71 @@ El logo usa la variante colorada (la más madura, la más intensa). Para campañ
 | Cuerpo / UI | **Inter** | `npm i @fontsource/inter` |
 
 - Self-hosted via Fontsource (sin Google Fonts → privacidad)
-- Fallback stack: `'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif`
-
-### Assets de Siloe-Generator (referencia)
-
-```
-Siloe-Generator/frontend/public/icons/icon.svg   ← gota de agua (icono SILOE)
-Siloe-Generator/frontend/public/icons/logo.svg   ← logo horizontal SILOE 512×192
-```
 
 ---
 
 ## 5. Stack recomendado para la web corporativa
 
-### Opción A — **Astro** (recomendado ⭐)
+### **Astro** ⭐ (recomendado)
 
 ```bash
 npm create astro@latest chumbo.io -- --template minimal
-# + integración Vue si se quieren componentes interactivos
 ```
 
-- SSG puro → HTML estático → despliegue en Cloudflare Pages (gratis, ya tenemos CF)
-- Velocidad máxima, SEO perfecto
-- Puede usar componentes Vue (que ya conocemos del proyecto)
-- Zero JS por defecto salvo donde se necesite
+- SSG puro → HTML estático → Cloudflare Pages (gratis, dominio ya en CF)
+- Velocidad máxima, SEO perfecto, zero JS por defecto
+- Puede usar componentes Vue donde se necesite interactividad
 
-### Opción B — HTML/CSS vanilla + Tailwind
+### Despliegue — Cloudflare Pages
 
-- Máximo control, cero dependencias de framework
-- Ideal si la web es básica (landing page)
-
-### Despliegue
-
-**Cloudflare Pages** es la opción natural (dominio ya en Cloudflare):
 ```
-# Build command:  npm run build
-# Output dir:     dist/
-# Branch:         main
+Build command:  npm run build
+Output dir:     dist/
+Branch:         main
+Custom domain:  chumbo.io
 ```
-O Railway si se prefiere consistencia con el resto del stack.
 
 ---
 
-## 6. Estructura de la web (mínimo viable)
+## 6. Estructura de la web
 
 ### Páginas
 
 ```
-/                   → Home / Landing page principal
-/productos          → Detalle de Siloe-Generator (o sección en home)
-/precios            → Planes y precios
-/legal              → Aviso legal + política de privacidad + cookies
-/contacto           → Formulario o mailto directo
+/           →  Home / Landing page principal
+/productos  →  Detalle de Siloe-Generator (o sección en home)
+/precios    →  Planes y precios (con CTA → siloegenerator.chumbo.io)
+/legal      →  Aviso legal + política de privacidad
+/contacto   →  mailto directo soporte@chumbo.io
 ```
 
-### Secciones del Home (propuesta)
+### Secciones del Home
 
-1. **Hero** — Tagline impactante + CTA → "Ver Siloe-Generator"
-2. **El problema** — Por qué existe chumbo.io (el libro de piscinas en Excel es un caos)
-3. **La solución** — Siloe-Generator en 3 bullets/cards
-4. **Prueba social** — "*Beta en producción · Primeros clientes · Cumple RD 742/2013*"
-5. **Precios** — Las 3 cards de planes
-6. **Sobre chumbo.io** — 2-3 líneas honestas sobre el fundador y la misión
-7. **Contacto** — `soporte@chumbo.io` + link a la app
-8. **Footer** — © chumbo.io · Aviso legal · `soporte@chumbo.io`
+1. **Hero** — Tagline + CTA "Probar gratis" → `https://siloegenerator.chumbo.io/precios`
+2. **El problema** — El libro de piscinas en papel/Excel es un caos + riesgo legal
+3. **La solución** — Siloe-Generator en 3 bullets concretos
+4. **Beta pública gratuita** — *"Pruébalo sin tarjeta. 1 establecimiento, 1 piscina. Cuando te convenza, pasas a un plan."*
+5. **Planes y precios** — Las **4 cards en una sola fila**: Beta gratis · Starter 69€ · Pro 129€ · Enterprise 299€
+6. **Cumplimiento legal** — RD 742/2013, XML SILOE, trazabilidad
+7. **Sobre chumbo.io** — 2-3 líneas honestas sobre el fundador y la misión
+8. **Contacto** — `soporte@chumbo.io`
+9. **Footer** — © chumbo.io · Aviso legal · `soporte@chumbo.io` · versión
+
+### ⚠️ Sobre la sección de precios (4 tarjetas en fila)
+
+Las 4 cards deben caber en **una sola fila** en desktop — en Siloe-Generator ya está resuelto con `col-lg-3`. En la web corporativa aplicar el mismo criterio: 4 columnas en pantallas grandes, 2×2 en tablet, 1 columna en móvil.
 
 ---
 
-## 7. Requisitos técnicos clave
+## 7. Requisitos técnicos
 
-- [ ] **Performance:** Lighthouse ≥ 90 en todas las métricas
-- [ ] **SEO básico:** meta title/description, og:tags, sitemap.xml, robots.txt
-- [ ] **Sin cookies de terceros** en primera carga (no Google Analytics por defecto)
+- [ ] **Performance:** Lighthouse ≥ 90
+- [ ] **SEO:** meta title/description, og:tags, sitemap.xml, robots.txt
+- [ ] **Sin cookies de terceros** en primera carga
 - [ ] **Responsive** — mobile-first
 - [ ] **HTTPS** — vía Cloudflare automático
-- [ ] **Sin formulario de contacto complejo** — `mailto:soporte@chumbo.io` es suficiente para MVP
-- [ ] **CTA principal** → `https://siloegenerator.chumbo.io` (registro/login)
+- [ ] **CTA principal** → `https://siloegenerator.chumbo.io/precios` (registro/login)
+- [ ] **CTA beta** → botón destacado "Probar gratis" → misma URL con `#beta` o directo
 
 ---
 
@@ -217,10 +220,11 @@ O Railway si se prefiere consistencia con el resto del stack.
 
 - ❌ Stock photos genéricas de gente sonriendo con ordenadores
 - ❌ Frases vacías tipo "Transformamos tu negocio"
-- ❌ Animaciones pesadas que ralenticen la carga
+- ❌ Animaciones pesadas
 - ❌ Cookie banners agresivos (si no hay tracking, no hay banner)
 - ❌ Dark patterns en los CTAs
 - ❌ Fingir que somos 50 empleados cuando somos 1
+- ❌ Decir que el plan beta es permanente — es **temporal durante la beta pública**
 
 ---
 
@@ -232,40 +236,39 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 ### Por qué "chumbo"
 
-> El **higo chumbo** (*Opuntia ficus-indica*) es el fruto de la chumbera — planta típica de Canarias y el sur de España. Por fuera está lleno de espinas y parece difícil de manejar. Por dentro es dulce, jugoso y nutritivo. Es exactamente la metáfora de lo que queremos ser: software que parece directo y sin adornos, pero que por dentro entrega valor real.
->
-> Además es auténtico, canario, y nadie en el mundo tech tiene un higo chumbo como logo. Eso ya es suficiente razón.
+> El **higo chumbo** (*Opuntia ficus-indica*) es el fruto de la chumbera — planta típica de Canarias y el sur de España. Por fuera está lleno de espinas y parece difícil de manejar. Por dentro es dulce, jugoso y nutritivo. Es exactamente la metáfora de lo que queremos ser: software que parece directo y sin adornos, pero que por dentro entrega valor real. Además es auténtico, canario, y nadie en el mundo tech tiene un higo chumbo como logo.
 
-### Estado actual del negocio
+### Estado actual del negocio — 25 marzo 2026
 
 - Fundador técnico solo, sin inversión externa
-- Producto en beta pública con primeros clientes reales
+- Producto en **beta pública activa** — versión `beta-v0.0.5-20260325`
+- Primeros usuarios reales en producción
 - Ingresos recurrentes vía Stripe (modelo SaaS mensual)
-- Próximos pasos: crecer base de clientes → ampliar producto
+- BD de producción limpia: cuentas root (`admin@siloe.com`, `juanrdzbaeza@gmail.com`) + tenant ANCOTUR (pruebas internas)
+- Infraestructura: Railway (EU West · Amsterdam) + Cloudflare + Resend + Stripe
 
 ---
 
 ## 10. Entregables esperados del agente
 
-> **Estado actual del proyecto** (ya hecho, no repetir):
+> **Ya existe en el repo** (no tocar):
 > - ✅ Git inicializado en `main`
 > - ✅ `public/icon.svg` y `public/logo.svg` creados y finalizados
-> - ✅ `BRIEF.md` y `README.md` en la raíz
+> - ✅ `BRIEF.md` (este fichero) y `README.md`
 
-**Lo que queda por hacer:**
+**Lo que queda por hacer / actualizar:**
 
-1. **Inicializar Astro** dentro del directorio existente `/home/juan/Documentos/IdeaProjects/chumbo.io` sin sobreescribir los ficheros ya presentes (`public/`, `BRIEF.md`, `README.md`)
-2. **Mover/integrar** `public/icon.svg` y `public/logo.svg` en la estructura de Astro
-3. **Generar favicon** a partir de `public/icon.svg` — `favicon.ico` + `favicon.svg` + `apple-touch-icon.png`
-4. **Implementar todas las secciones** del Home descritas en §6
-5. **Implementar `/precios`** con las 3 cards (Starter/Pro/Enterprise) y CTA → `https://siloegenerator.chumbo.io/precios`
-6. **Implementar `/legal`** con aviso legal básico para España (LOPD/RGPD, adaptable)
-7. **Footer** con © chumbo.io, enlaces legales, `soporte@chumbo.io`
-8. **Instalar fuentes** Space Grotesk + Inter vía Fontsource (self-hosted)
-9. **Actualizar `README.md`** con instrucciones de desarrollo y despliegue en Cloudflare Pages
+1. **Inicializar Astro** dentro del directorio existente sin sobreescribir `public/`, `BRIEF.md`, `README.md`
+2. **Integrar** `public/icon.svg` y `public/logo.svg` en la estructura Astro
+3. **Favicon:** `favicon.ico` + `favicon.svg` + `apple-touch-icon.png` desde `icon.svg`
+4. **Home completo** con todas las secciones de §6, incluyendo la **sección de beta pública** como CTA destacado
+5. **`/precios`** con las **4 cards** (Beta gratis · Starter 69€ · Pro 129€ · Enterprise 299€) en una sola fila en desktop, CTA → `https://siloegenerator.chumbo.io/precios`
+6. **`/legal`** — aviso legal España (LOPD/RGPD)
+7. **Footer** — © 2026 chumbo.io · enlaces legales · `soporte@chumbo.io`
+8. **Fuentes** Space Grotesk + Inter vía Fontsource
+9. **README.md** actualizado con instrucciones de desarrollo y despliegue en Cloudflare Pages
 10. **`package.json`** con scripts `dev`, `build`, `preview`
 
 ---
 
-*Brief generado el 24 marzo 2026 · chumbo.io · soporte@chumbo.io*
-
+*Brief actualizado: 25 marzo 2026 · chumbo.io · soporte@chumbo.io*
