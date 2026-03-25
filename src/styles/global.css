@@ -1,0 +1,140 @@
+/* ── Fuentes self-hosted (sin Google Fonts) ──────────────────── */
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+
+/* ── Variables de la paleta de marca ─────────────────────────── */
+:root {
+  --chumbo-skin:  #9B1D35;
+  --chumbo-flesh: #F4A523;
+  --chumbo-dark:  #6E1225;
+  --chumbo-spine: #7A1528;
+  --bg-dark:      #111111;
+  --bg-mid:       #1a1a1a;
+  --bg-light:     #FAFAF8;
+  --bg-white:     #ffffff;
+  --text-dark:    #1a1a1a;
+  --text-muted:   #6b7280;
+  --text-light:   #e5e7eb;
+  --border:       #e5e7eb;
+
+  --font-heading: 'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+  --font-body:    Inter, system-ui, -apple-system, sans-serif;
+
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg:  0 8px 32px rgba(0,0,0,.14);
+}
+
+/* ── Reset base ──────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-dark);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+a {
+  color: var(--chumbo-skin);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+img, svg { max-width: 100%; display: block; }
+
+/* ── Utilidades globales ─────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.75rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background .18s, color .18s, border-color .18s, transform .12s;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary {
+  background: var(--chumbo-flesh);
+  color: #1a1a1a;
+  border-color: var(--chumbo-flesh);
+}
+.btn-primary:hover {
+  background: #e09718;
+  border-color: #e09718;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255,255,255,.45);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.7);
+}
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--chumbo-skin);
+  border-color: var(--chumbo-skin);
+}
+.btn-outline-dark:hover {
+  background: var(--chumbo-skin);
+  color: #fff;
+}
+
+.section-label {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--chumbo-flesh);
+  margin-bottom: .75rem;
+}
+
+.section-label--dark {
+  color: var(--chumbo-skin);
+}
+

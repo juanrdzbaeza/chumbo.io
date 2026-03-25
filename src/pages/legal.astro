@@ -1,0 +1,274 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const year = new Date().getFullYear();
+---
+
+<Layout
+  title="Aviso legal y privacidad — chumbo.io"
+  description="Aviso legal, política de privacidad y política de cookies de chumbo.io."
+>
+  <Nav />
+  <main class="legal-page">
+    <div class="container">
+      <div class="legal-header">
+        <h1>Aviso legal, privacidad y cookies</h1>
+        <p>Última actualización: 24 de marzo de 2026</p>
+      </div>
+
+      <nav class="legal-nav" aria-label="Índice">
+        <ol>
+          <li><a href="#aviso">Aviso legal</a></li>
+          <li><a href="#privacidad">Política de privacidad</a></li>
+          <li><a href="#cookies">Política de cookies</a></li>
+        </ol>
+      </nav>
+
+      <!-- ── AVISO LEGAL ─────────────────────────────────── -->
+      <section id="aviso" class="legal-section">
+        <h2>1. Aviso legal</h2>
+
+        <h3>Titular del sitio</h3>
+        <p>
+          El presente sitio web <strong>chumbo.io</strong> es titularidad de Juan (en adelante, «el titular»),
+          con domicilio en España, y correo electrónico de contacto:{' '}
+          <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>.
+        </p>
+
+        <h3>Objeto</h3>
+        <p>
+          Este sitio web tiene por objeto presentar la empresa chumbo.io y sus productos de software,
+          en particular <strong>Siloe-Generator</strong>, herramienta de gestión del libro de registro
+          de piscinas de uso público conforme al Real Decreto 742/2013.
+        </p>
+
+        <h3>Propiedad intelectual e industrial</h3>
+        <p>
+          Todos los contenidos de este sitio web (textos, imágenes, diseño, código fuente, logotipos y
+          marcas) son propiedad exclusiva del titular o cuenta con la debida autorización para su uso.
+          Queda prohibida su reproducción, distribución o comunicación pública total o parcial sin
+          autorización expresa del titular.
+        </p>
+
+        <h3>Responsabilidad</h3>
+        <p>
+          El titular no garantiza la disponibilidad continua del sitio web ni es responsable de los
+          daños que puedan derivarse de su uso. Los enlaces a terceros se facilitan a título informativo
+          y el titular no controla ni asume responsabilidad por sus contenidos.
+        </p>
+
+        <h3>Legislación aplicable</h3>
+        <p>
+          Este aviso legal se rige por la legislación española, en particular la Ley 34/2002 de
+          Servicios de la Sociedad de la Información (LSSI), la Ley Orgánica 3/2018 de Protección
+          de Datos Personales (LOPDGDD) y el Reglamento (UE) 2016/679 (RGPD).
+        </p>
+      </section>
+
+      <!-- ── PRIVACIDAD ──────────────────────────────────── -->
+      <section id="privacidad" class="legal-section">
+        <h2>2. Política de privacidad</h2>
+
+        <h3>Responsable del tratamiento</h3>
+        <p>
+          El responsable del tratamiento de los datos personales recogidos a través de este sitio y
+          de la aplicación Siloe-Generator es el titular de chumbo.io.
+          Contacto: <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>
+        </p>
+
+        <h3>Datos que se recogen</h3>
+        <ul>
+          <li><strong>En el sitio web:</strong> no se recogen datos personales salvo que el usuario contacte voluntariamente por email.</li>
+          <li><strong>En la aplicación Siloe-Generator:</strong> nombre, dirección de email, datos del establecimiento y datos técnicos de la actividad de la piscina (parámetros físico-químicos).</li>
+          <li><strong>Datos de pago:</strong> gestionados íntegramente por Stripe, Inc. chumbo.io no almacena datos de tarjeta de crédito.</li>
+        </ul>
+
+        <h3>Finalidad del tratamiento</h3>
+        <ul>
+          <li>Prestación del servicio Siloe-Generator (gestión del libro de piscinas).</li>
+          <li>Gestión de la relación contractual y facturación.</li>
+          <li>Envío de comunicaciones transaccionales relacionadas con el servicio.</li>
+          <li>Atención al cliente.</li>
+        </ul>
+
+        <h3>Base legal</h3>
+        <p>
+          La ejecución del contrato de servicio (art. 6.1.b RGPD) y el interés legítimo del responsable
+          en el mantenimiento de la relación comercial (art. 6.1.f RGPD).
+        </p>
+
+        <h3>Cesión de datos a terceros</h3>
+        <p>
+          Los datos no se ceden a terceros salvo obligación legal o a los siguientes encargados del
+          tratamiento necesarios para la prestación del servicio:
+        </p>
+        <ul>
+          <li><strong>Stripe, Inc.</strong> — procesamiento de pagos (EE.UU., bajo Cláusulas Contractuales Tipo)</li>
+          <li><strong>Railway Corp.</strong> — infraestructura cloud (EE.UU., bajo Cláusulas Contractuales Tipo)</li>
+          <li><strong>Resend, Inc.</strong> — envío de correos transaccionales (EE.UU., bajo Cláusulas Contractuales Tipo)</li>
+          <li><strong>Cloudflare, Inc.</strong> — CDN y DNS (EE.UU., bajo Cláusulas Contractuales Tipo)</li>
+        </ul>
+
+        <h3>Conservación de datos</h3>
+        <p>
+          Los datos se conservan durante el tiempo necesario para la prestación del servicio y, una vez
+          finalizada la relación contractual, durante los plazos legalmente establecidos. Los datos de
+          usuarios que cancelen su cuenta se eliminan en un plazo máximo de 30 días.
+        </p>
+
+        <h3>Derechos del usuario</h3>
+        <p>
+          En cualquier momento puedes ejercer tus derechos de acceso, rectificación, supresión,
+          oposición, limitación del tratamiento y portabilidad escribiendo a{' '}
+          <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>. También tienes derecho a presentar
+          una reclamación ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">aepd.es</a>).
+        </p>
+      </section>
+
+      <!-- ── COOKIES ─────────────────────────────────────── -->
+      <section id="cookies" class="legal-section">
+        <h2>3. Política de cookies</h2>
+
+        <h3>¿Qué son las cookies?</h3>
+        <p>
+          Las cookies son pequeños ficheros de texto que se almacenan en tu dispositivo cuando visitas
+          un sitio web. Permiten que el sitio recuerde tus preferencias o detecte cómo interactúas con él.
+        </p>
+
+        <h3>Cookies que usa chumbo.io</h3>
+        <p>
+          El sitio web de <strong>chumbo.io (chumbo.io)</strong> es un sitio estático que
+          <strong>no utiliza cookies de terceros ni de seguimiento</strong>. No hay Google Analytics,
+          ni píxeles de publicidad, ni ningún tipo de rastreo.
+        </p>
+        <p>
+          La aplicación <strong>Siloe-Generator</strong> puede utilizar cookies técnicas estrictamente
+          necesarias para el funcionamiento del servicio (sesión de usuario, autenticación). Estas cookies
+          no requieren consentimiento según el art. 22.2 LSSI.
+        </p>
+
+        <h3>Cómo gestionar las cookies</h3>
+        <p>
+          Puedes configurar tu navegador para rechazar o eliminar cookies. Ten en cuenta que desactivar
+          las cookies técnicas puede afectar al funcionamiento de la aplicación.
+        </p>
+        <ul>
+          <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener">Chrome</a></li>
+          <li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web" target="_blank" rel="noopener">Firefox</a></li>
+          <li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener">Safari</a></li>
+        </ul>
+      </section>
+
+      <p class="legal-footer-note">
+        © {year} chumbo.io · <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>
+      </p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+.legal-page {
+  background: var(--bg-light);
+  padding: 4rem 0 6rem;
+}
+
+.legal-page .container {
+  max-width: 780px;
+}
+
+.legal-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.legal-header h1 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--text-dark);
+  margin-bottom: .5rem;
+}
+
+.legal-header p {
+  font-size: .875rem;
+  color: var(--text-muted);
+}
+
+.legal-nav {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+}
+
+.legal-nav ol {
+  display: flex;
+  gap: 2rem;
+  list-style: decimal inside;
+  flex-wrap: wrap;
+}
+
+.legal-nav a {
+  font-family: var(--font-heading);
+  font-size: .9rem;
+  font-weight: 500;
+  color: var(--chumbo-skin);
+}
+
+.legal-section {
+  margin-bottom: 3.5rem;
+  scroll-margin-top: 80px;
+}
+
+.legal-section h2 {
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  margin-bottom: 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--chumbo-skin);
+}
+
+.legal-section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-top: 1.5rem;
+  margin-bottom: .5rem;
+}
+
+.legal-section p {
+  font-size: .95rem;
+  color: #374151;
+  line-height: 1.75;
+  margin-bottom: .75rem;
+}
+
+.legal-section ul {
+  padding-left: 1.5rem;
+  margin-bottom: .75rem;
+}
+
+.legal-section li {
+  font-size: .95rem;
+  color: #374151;
+  line-height: 1.7;
+  margin-bottom: .3rem;
+}
+
+.legal-section a {
+  color: var(--chumbo-skin);
+  font-weight: 500;
+}
+
+.legal-footer-note {
+  font-size: .85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+</style>
+

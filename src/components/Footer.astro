@@ -1,0 +1,147 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="/" aria-label="chumbo.io — inicio">
+        <img src="/logo.svg" alt="chumbo.io" height="32" width="auto" />
+      </a>
+      <p class="footer-tagline">Software que funciona. Sin humo.</p>
+    </div>
+
+    <nav class="footer-nav" aria-label="Navegación del pie de página">
+      <div class="footer-nav-col">
+        <h4>Producto</h4>
+        <ul>
+          <li><a href="/#producto">Siloe-Generator</a></li>
+          <li><a href="/precios">Precios</a></li>
+          <li><a href="https://siloegenerator.chumbo.io" target="_blank" rel="noopener">Acceder →</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="/#sobre">Sobre chumbo.io</a></li>
+          <li><a href="/contacto">Contacto</a></li>
+          <li><a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a></li>
+        </ul>
+      </div>
+      <div class="footer-nav-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/legal">Aviso legal</a></li>
+          <li><a href="/legal#privacidad">Política de privacidad</a></li>
+          <li><a href="/legal#cookies">Política de cookies</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© {year} chumbo.io — Todos los derechos reservados.</span>
+      <span class="footer-love">
+        Hecho con 🌵 en España
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+.footer {
+  background: #0a0a0a;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+  align-items: start;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+.footer-brand img { height: 28px; width: auto; }
+
+.footer-tagline {
+  font-size: .875rem;
+  color: #6b7280;
+  font-style: italic;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 4rem;
+}
+
+.footer-nav-col h4 {
+  font-family: var(--font-heading);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: .875rem;
+}
+
+.footer-nav-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.footer-nav-col a {
+  font-size: .875rem;
+  color: #9ca3af;
+  transition: color .15s;
+  text-decoration: none;
+}
+.footer-nav-col a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-bottom .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.footer-bottom span {
+  font-size: .8rem;
+  color: #4b5563;
+}
+
+.footer-love { font-size: .8rem !important; }
+
+@media (max-width: 768px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .footer-nav {
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  .footer-bottom .container {
+    flex-direction: column;
+    gap: .5rem;
+    text-align: center;
+  }
+}
+</style>
+

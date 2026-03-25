@@ -1,0 +1,95 @@
+---
+---
+
+<section class="problem" id="problema">
+  <div class="container">
+    <span class="section-label section-label--dark">El problema</span>
+    <h2 class="problem-title">
+      ¿Llevas el libro de registro en Excel?<br />
+      <span>Sabemos cómo termina eso.</span>
+    </h2>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">📋</div>
+        <h3>El papel se pierde</h3>
+        <p>
+          Registrar a mano en papel está bien hasta que el inspector de Sanidad
+          aparece y el libro lleva dos semanas sin rellenar porque "se olvidó".
+        </p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📊</div>
+        <h3>Excel funciona hasta que no funciona</h3>
+        <p>
+          Versiones distintas en distintos ordenadores, fórmulas rotas, ficheros
+          corruptos. Y encima tienes que exportar el XML para SILOE a mano.
+          ¿XML? ¿A mano?
+        </p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⚖️</div>
+        <h3>El RD 742/2013 no es opcional</h3>
+        <p>
+          Los titulares de piscinas de uso público en España están obligados a
+          declarar los parámetros físico-químicos al sistema SILOE del Ministerio
+          de Sanidad. No cumplir tiene consecuencias.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.problem {
+  background: var(--bg-light);
+  padding: 6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.problem-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  margin-bottom: 3rem;
+  color: var(--text-dark);
+  max-width: 640px;
+}
+.problem-title span {
+  color: var(--chumbo-skin);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.problem-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s;
+}
+.problem-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.problem-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.problem-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: .6rem;
+  color: var(--text-dark);
+}
+
+.problem-card p {
+  font-size: .95rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+</style>
+

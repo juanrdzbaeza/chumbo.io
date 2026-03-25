@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import PricingCards from '../components/PricingCards.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Precios — chumbo.io"
+  description="Planes para Siloe-Generator: Beta gratis (1 piscina) · Starter 69 €/mes · Pro 129 €/mes · Enterprise 299 €/mes. Sin permanencia. Cancela cuando quieras."
+>
+  <Nav />
+  <main>
+    <PricingCards standalone={true} />
+
+    <section class="faq">
+      <div class="container">
+        <h2>Preguntas frecuentes</h2>
+        <div class="faq-grid">
+
+          <div class="faq-item">
+            <h3>¿Qué incluye cada plan?</h3>
+            <p>
+              Todos los planes incluyen acceso completo a Siloe-Generator: registro de
+              lecturas diarias, generación de XML oficial para SILOE, gestión de
+              muestras de laboratorio y descarga de plantilla XLSX.
+              La diferencia está en el número de piscinas:
+              <strong>Beta gratis</strong> (1 piscina, temporal),
+              <strong>Starter</strong> (hasta 2 piscinas),
+              <strong>Pro</strong> (hasta 6 piscinas),
+              <strong>Enterprise</strong> (sin límite).
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Puedo cambiar de plan?</h3>
+            <p>
+              Sí, en cualquier momento. El cambio es inmediato
+              y el cobro se prorratea via Stripe.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Cómo funciona el pago?</h3>
+            <p>
+              Suscripción mensual con tarjeta de crédito/débito a través de Stripe.
+              Sin guardar datos de tarjeta en nuestros servidores.
+              Recibirás factura automática por cada cargo.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Puedo cancelar cuando quiera?</h3>
+            <p>
+              Sí, sin penalizaciones y sin llamadas de retención.
+              La cuenta se mantiene activa hasta el final del periodo pagado.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>¿Qué pasa con mis datos si cancelo?</h3>
+            <p>
+              Tus registros siguen accesibles 30 días tras la cancelación para que
+              puedas exportarlos. Después se eliminan de forma segura.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Tengo más de 6 piscinas. ¿Qué hago?</h3>
+            <p>
+              Escríbenos a <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a>.
+              El plan Enterprise cubre piscinas ilimitadas y podemos ajustar
+              lo que necesites sin complicaciones.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+.faq {
+  background: var(--bg-white);
+  padding: 5rem 0 6rem;
+  border-top: 1px solid var(--border);
+}
+
+.faq h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.faq-item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: .5rem;
+}
+
+.faq-item p {
+  font-size: .925rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+
+.faq-item strong { color: var(--text-dark); font-weight: 600; }
+
+.faq-item a {
+  color: var(--chumbo-skin);
+  font-weight: 500;
+}
+</style>

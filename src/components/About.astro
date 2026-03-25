@@ -1,0 +1,84 @@
+---
+---
+
+<section class="about" id="sobre">
+  <div class="container about-inner">
+    <div class="about-logo" aria-hidden="true">
+      <img src="/icon.svg" alt="" />
+    </div>
+    <div class="about-content">
+      <span class="section-label">Sobre chumbo.io</span>
+      <h2>Software honesto, hecho por una persona</h2>
+      <p>
+        chumbo.io es una startup española de software, <strong>bootstrapped y sin
+        inversión externa</strong>. Una persona, un producto, un problema real resuelto.
+      </p>
+      <p>
+        No hay pitch decks, ni rondas de financiación, ni consultoras de
+        "transformación digital". Solo código que funciona y clientes que lo usan
+        de verdad.
+      </p>
+      <p>
+        El nombre viene del <strong>higo chumbo</strong> — el fruto de la chumbera,
+        típico de Canarias y el sur de España. Por fuera: espinoso y directo.
+        Por dentro: dulce y valioso. Exactamente lo que queremos ser.
+      </p>
+      <div class="about-actions">
+        <a href="mailto:soporte@chumbo.io" class="btn btn-primary">
+          Escribir a soporte@chumbo.io
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.about {
+  background: var(--bg-dark);
+  padding: 6rem 0;
+}
+
+.about-inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-logo {
+  width: 140px;
+  flex-shrink: 0;
+  opacity: .9;
+}
+
+.about-content .section-label { color: var(--chumbo-flesh); }
+
+.about-content h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+
+.about-content p {
+  font-size: 1rem;
+  color: #9ca3af;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  max-width: 560px;
+}
+.about-content p strong {
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.about-actions { margin-top: 1.75rem; }
+
+@media (max-width: 680px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .about-logo { width: 90px; }
+}
+</style>
+

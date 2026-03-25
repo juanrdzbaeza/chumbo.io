@@ -1,0 +1,216 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Contacto — chumbo.io"
+  description="Contacta con chumbo.io. Escríbenos a soporte@chumbo.io — una persona real te responderá."
+>
+  <Nav />
+  <main>
+    <section class="contact-page">
+      <div class="container">
+        <div class="cp-header">
+          <span class="section-label section-label--dark">Contacto</span>
+          <h1>Hablemos</h1>
+          <p>
+            No hay chatbot, no hay soporte por tickets con SLA de 72 horas.
+            Hay una persona que lee el correo y responde.
+          </p>
+        </div>
+
+        <div class="cp-grid">
+          <div class="cp-main">
+            <div class="cp-channel">
+              <div class="cp-channel-icon">📧</div>
+              <div>
+                <h2>Email</h2>
+                <p>Para cualquier pregunta sobre Siloe-Generator, precios, o lo que sea.</p>
+                <a href="mailto:soporte@chumbo.io" class="cp-email">soporte@chumbo.io</a>
+              </div>
+            </div>
+
+            <div class="cp-channel">
+              <div class="cp-channel-icon">🚀</div>
+              <div>
+                <h2>¿Listo para empezar?</h2>
+                <p>Regístrate directamente en Siloe-Generator y empieza a gestionar tus piscinas.</p>
+                <a
+                  href="https://siloegenerator.chumbo.io/registro"
+                  class="btn btn-primary"
+                  target="_blank"
+                  rel="noopener"
+                  style="margin-top: .75rem;"
+                >
+                  Crear cuenta en Siloe-Generator →
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <aside class="cp-aside">
+            <h3>Antes de escribir</h3>
+            <ul>
+              <li>
+                <strong>¿Preguntas sobre precios?</strong><br />
+                <a href="/precios">Consulta la página de precios</a> — está bastante completa.
+              </li>
+              <li>
+                <strong>¿Problema técnico?</strong><br />
+                Escríbenos con el mayor detalle posible: qué estabas haciendo, qué pasó, en qué navegador.
+              </li>
+              <li>
+                <strong>¿Propuesta comercial o colaboración?</strong><br />
+                Enviála directamente al email. Sin filtros.
+              </li>
+            </ul>
+
+            <div class="cp-response-time">
+              <span>⏱</span>
+              <span>Tiempo de respuesta habitual: menos de 24 horas en días laborables.</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+.contact-page {
+  background: var(--bg-light);
+  padding: 5rem 0 7rem;
+  min-height: calc(100vh - 64px);
+}
+
+.cp-header {
+  margin-bottom: 3.5rem;
+}
+
+.cp-header h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--text-dark);
+  margin-bottom: .75rem;
+}
+
+.cp-header p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 480px;
+}
+
+.cp-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: start;
+}
+
+.cp-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.cp-channel {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.cp-channel-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.cp-channel h2 {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: .4rem;
+}
+
+.cp-channel p {
+  font-size: .95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: .75rem;
+}
+
+.cp-email {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--chumbo-skin);
+  border-bottom: 2px solid transparent;
+  transition: border-color .15s;
+}
+.cp-email:hover {
+  border-color: var(--chumbo-skin);
+  text-decoration: none;
+}
+
+.cp-aside {
+  width: 320px;
+  background: var(--bg-dark);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.cp-aside h3 {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--chumbo-flesh);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  font-size: .8rem;
+  margin-bottom: 1.25rem;
+}
+
+.cp-aside ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.cp-aside li {
+  font-size: .875rem;
+  line-height: 1.6;
+}
+
+.cp-aside strong { color: #e5e7eb; }
+
+.cp-aside a {
+  color: var(--chumbo-flesh);
+  text-decoration: underline;
+}
+
+.cp-response-time {
+  display: flex;
+  gap: .6rem;
+  align-items: flex-start;
+  background: rgba(255,255,255,.04);
+  border-radius: var(--radius-sm);
+  padding: .875rem 1rem;
+  font-size: .82rem;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .cp-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .cp-aside { width: 100%; }
+}
+</style>
+

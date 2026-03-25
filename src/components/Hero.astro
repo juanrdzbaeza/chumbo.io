@@ -1,0 +1,138 @@
+---
+---
+
+<section class="hero" id="inicio">
+  <div class="container hero-inner">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Beta pública activa · versión beta-v0.0.5
+    </div>
+
+    <h1 class="hero-title">
+      El libro de registro<br />
+      de piscinas que<br />
+      <em>por fin funciona.</em>
+    </h1>
+
+    <p class="hero-sub">
+      Cumple el <strong>RD 742/2013</strong>, genera el XML oficial para SILOE
+      y olvídate de los Excel que se corrompen en el peor momento.
+      Automatizado, en la nube, sin complicaciones.
+    </p>
+
+    <div class="hero-actions">
+      <a
+        href="https://siloegenerator.chumbo.io/precios"
+        class="btn btn-primary"
+        target="_blank"
+        rel="noopener"
+      >
+        Probar gratis →
+      </a>
+      <a href="/precios" class="btn btn-outline">Ver precios</a>
+    </div>
+
+    <p class="hero-note">
+      Beta gratuita sin tarjeta · 1 establecimiento · 1 piscina · Upgrade transparente cuando quieras
+    </p>
+  </div>
+
+  <!-- Decoración: el chumbo grande al fondo -->
+  <div class="hero-deco" aria-hidden="true">
+    <img src="/icon.svg" alt="" />
+  </div>
+</section>
+
+<style>
+.hero {
+  position: relative;
+  background: var(--bg-dark);
+  overflow: hidden;
+  padding: 6rem 0 7rem;
+  min-height: calc(100vh - 64px);
+  display: flex;
+  align-items: center;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .8rem;
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--chumbo-flesh);
+  background: rgba(244,165,35,.1);
+  border: 1px solid rgba(244,165,35,.25);
+  border-radius: 999px;
+  padding: .3rem .9rem;
+  margin-bottom: 2rem;
+  letter-spacing: .03em;
+}
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--chumbo-flesh);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .4; }
+}
+
+.hero-title {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--chumbo-flesh);
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: #9ca3af;
+  max-width: 560px;
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+}
+.hero-sub strong { color: var(--text-light); font-weight: 500; }
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-note {
+  font-size: .82rem;
+  color: #6b7280;
+}
+
+/* Decoración: icono flotante a la derecha */
+.hero-deco {
+  position: absolute;
+  right: -4%;
+  bottom: -8%;
+  width: min(42%, 420px);
+  opacity: .06;
+  pointer-events: none;
+  filter: grayscale(1);
+  transform: rotate(12deg);
+}
+
+@media (max-width: 680px) {
+  .hero { padding: 4rem 0 5rem; min-height: auto; }
+  .hero-deco { display: none; }
+}
+</style>
+
