@@ -79,6 +79,8 @@
 - ✅ En producción en Railway (EU West)
 - ✅ Dominios propios vía Cloudflare (`siloegenerator.chumbo.io`, `api.chumbo.io`)
 - ✅ Footer con versión, aviso legal, RD 742/2013, contacto
+- ✅ Migración `20260330_add_force_password_change.sql` añadida (campo `force_password_change` en users)
+- ✅ Forzar cambio de contraseña (feature ready, pendiente de pruebas e2e)
 - 🔄 Pendiente: feedback de primeros usuarios beta reales
 
 ---
