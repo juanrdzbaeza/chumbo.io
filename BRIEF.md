@@ -2,7 +2,7 @@
 
 > 📋 Este fichero es el **contexto completo** para construir la web corporativa de chumbo.io.
 > Dáselo al agente/copilot que vaya a implementar o actualizar el proyecto.
-> **Última actualización: 25 marzo 2026**
+> **Última actualización: 30 marzo 2026**
 
 ---
 
@@ -61,7 +61,7 @@
 4. **Si plan de pago:** clic en el enlace → redirige a Stripe Checkout → pago → webhook activa la cuenta
 5. Usuario ya puede iniciar sesión en `https://siloegenerator.chumbo.io`
 
-### Estado del producto — 25 marzo 2026
+### Estado del producto — 30 marzo 2026
 
 - ✅ Registro con confirmación por email (Resend desde `noreply@siloegenerator.chumbo.io`)
 - ✅ **Beta pública gratuita** (1 hotel, 1 piscina, sin tarjeta)
@@ -276,8 +276,10 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 7. **Footer** — © 2026 chumbo.io · enlaces legales · `soporte@chumbo.io`
 8. **Fuentes** Space Grotesk + Inter vía Fontsource
 9. **README.md** actualizado con instrucciones de desarrollo y despliegue en Cloudflare Pages
-10. **`package.json`** con scripts `dev`, `build`, `preview`
+10. **package.json** con scripts `dev`, `build`, `preview`
+11. **Migraciones / DB**: comprobar que `backend/migrations/20260330_add_force_password_change.sql` existe y que `backend/scripts/init-db.js` lo referencia (para que la migración se aplique en despliegues automáticos). Si no está referenciada, añadirla a `init-db.js`.
+12. **Tag & Release**: crear tag git `beta/v0.0.7-20260330` y preparar release notes mínimas en el changelog: destacar `force_password_change`, mejoras mobile-first y correcciones de duplicados en lecturas.
 
 ---
 
-*Brief actualizado: 25 marzo 2026 · chumbo.io · soporte@chumbo.io*
+*Brief actualizado: 30 marzo 2026 · chumbo.io · soporte@chumbo.io*
