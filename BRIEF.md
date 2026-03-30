@@ -36,7 +36,7 @@
 | **Subtítulo** | Libro Digital de Piscinas |
 | **URL producción** | https://siloegenerator.chumbo.io |
 | **URL API** | https://api.chumbo.io |
-| **Versión actual** | `beta-v0.0.5-20260325` |
+| **Versión actual** | `beta-v0.0.7-20260330` |
 | **Qué hace** | Sustituye el libro de registro en papel/Excel de una piscina. Gestiona lecturas diarias de parámetros físico-químicos, genera el XML oficial para el sistema SILOE de Sanidad y gestiona muestras de laboratorio. |
 | **Marco legal** | Real Decreto 742/2013, de 27 de septiembre — criterios técnico-sanitarios de piscinas |
 | **Clientes objetivo** | Hoteles, campings, clubes deportivos, comunidades de vecinos — cualquier establecimiento con piscina de uso público en España |
@@ -247,10 +247,10 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 > El **higo chumbo** (*Opuntia ficus-indica*) es el fruto de la chumbera — planta típica de Canarias y el sur de España. Por fuera está lleno de espinas y parece difícil de manejar. Por dentro es dulce, jugoso y nutritivo. Es exactamente la metáfora de lo que queremos ser: software que parece directo y sin adornos, pero que por dentro entrega valor real. Además es auténtico, canario, y nadie en el mundo tech tiene un higo chumbo como logo.
 
-### Estado actual del negocio — 25 marzo 2026
+### Estado actual del negocio — 30 marzo 2026
 
 - Fundador técnico solo, sin inversión externa
-- Producto en **beta pública activa** — versión `beta-v0.0.5-20260325`
+- Producto en **beta pública activa** — versión `beta-v0.0.7-20260330`
 - Primeros usuarios reales en producción
 - Ingresos recurrentes vía Stripe (modelo SaaS mensual)
 - BD de producción limpia: cuentas root (`admin@siloe.com`, `juanrdzbaeza@gmail.com`) + tenant ANCOTUR (pruebas internas)
