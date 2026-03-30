@@ -95,10 +95,17 @@ noreply@siloegenerator.chumbo.io   →  emails transaccionales (Resend · SPF+DK
 soporte@chumbo.io                  →  redirige a email personal del fundador (Cloudflare Email Routing)
 ```
 
-**Emails transaccionales:**
-- Proveedor: **Resend** (resend.com) — dominio verificado con SPF + DKIM en Cloudflare
-- Remitente: `SILOE Generator <noreply@siloegenerator.chumbo.io>`
-- Tipos: confirmación de registro (diferenciado: beta en verde / pago en azul)
+### Variables de entorno importantes (no incluir secretos aquí — documentar claves en Railway)
+
+- `DATABASE_URL` — URL de la BD PostgreSQL (Railway/Postgres)
+- `NODE_ENV` — `production` en despliegue
+- `JWT_SECRET`, `JWT_EXPIRES` — tokens y expiración
+- `CORS_ORIGINS`, `FRONTEND_URL` — dominios permitidos (`https://siloegenerator.chumbo.io`)
+- `STRIPE_*` — claves y precios en Stripe
+- `RESEND_API_KEY` — clave de Resend (guardar en Railway secrets)
+- `EMAIL_FROM` — remitente para emails transaccionales (`SILOE Generator <noreply@siloegenerator.chumbo.io>`)
+
+Nota: No incluir valores secretos directamente en este BRIEF. Guardar en el gestor de variables del entorno del proveedor (Railway / Cloudflare Pages / Netlify según corresponda).
 
 ---
 
