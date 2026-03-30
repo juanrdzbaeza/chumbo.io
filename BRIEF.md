@@ -2,7 +2,7 @@
 
 > 📋 Este fichero es el **contexto completo** para construir la web corporativa de chumbo.io.
 > Dáselo al agente/copilot que vaya a implementar o actualizar el proyecto.
-> **Última actualización: 25 marzo 2026**
+> **Última actualización: 30 marzo 2026**
 
 ---
 
@@ -36,7 +36,7 @@
 | **Subtítulo** | Libro Digital de Piscinas |
 | **URL producción** | https://siloegenerator.chumbo.io |
 | **URL API** | https://api.chumbo.io |
-| **Versión actual** | `beta-v0.0.5-20260325` |
+| **Versión actual** | `beta-v0.0.7-20260330` |
 | **Qué hace** | Sustituye el libro de registro en papel/Excel de una piscina. Gestiona lecturas diarias de parámetros físico-químicos, genera el XML oficial para el sistema SILOE de Sanidad y gestiona muestras de laboratorio. |
 | **Marco legal** | Real Decreto 742/2013, de 27 de septiembre — criterios técnico-sanitarios de piscinas |
 | **Clientes objetivo** | Hoteles, campings, clubes deportivos, comunidades de vecinos — cualquier establecimiento con piscina de uso público en España |
@@ -61,7 +61,7 @@
 4. **Si plan de pago:** clic en el enlace → redirige a Stripe Checkout → pago → webhook activa la cuenta
 5. Usuario ya puede iniciar sesión en `https://siloegenerator.chumbo.io`
 
-### Estado del producto — 25 marzo 2026
+### Estado del producto — 30 marzo 2026
 
 - ✅ Registro con confirmación por email (Resend desde `noreply@siloegenerator.chumbo.io`)
 - ✅ **Beta pública gratuita** (1 hotel, 1 piscina, sin tarjeta)
@@ -79,6 +79,8 @@
 - ✅ En producción en Railway (EU West)
 - ✅ Dominios propios vía Cloudflare (`siloegenerator.chumbo.io`, `api.chumbo.io`)
 - ✅ Footer con versión, aviso legal, RD 742/2013, contacto
+- ✅ Migración `20260330_add_force_password_change.sql` añadida (campo `force_password_change` en users)
+- ✅ Forzar cambio de contraseña (feature ready, pendiente de pruebas e2e)
 - 🔄 Pendiente: feedback de primeros usuarios beta reales
 
 ---
@@ -93,10 +95,17 @@ noreply@siloegenerator.chumbo.io   →  emails transaccionales (Resend · SPF+DK
 soporte@chumbo.io                  →  redirige a email personal del fundador (Cloudflare Email Routing)
 ```
 
-**Emails transaccionales:**
-- Proveedor: **Resend** (resend.com) — dominio verificado con SPF + DKIM en Cloudflare
-- Remitente: `SILOE Generator <noreply@siloegenerator.chumbo.io>`
-- Tipos: confirmación de registro (diferenciado: beta en verde / pago en azul)
+### Variables de entorno importantes (no incluir secretos aquí — documentar claves en Railway)
+
+- `DATABASE_URL` — URL de la BD PostgreSQL (Railway/Postgres)
+- `NODE_ENV` — `production` en despliegue
+- `JWT_SECRET`, `JWT_EXPIRES` — tokens y expiración
+- `CORS_ORIGINS`, `FRONTEND_URL` — dominios permitidos (`https://siloegenerator.chumbo.io`)
+- `STRIPE_*` — claves y precios en Stripe
+- `RESEND_API_KEY` — clave de Resend (guardar en Railway secrets)
+- `EMAIL_FROM` — remitente para emails transaccionales (`SILOE Generator <noreply@siloegenerator.chumbo.io>`)
+
+Nota: No incluir valores secretos directamente en este BRIEF. Guardar en el gestor de variables del entorno del proveedor (Railway / Cloudflare Pages / Netlify según corresponda).
 
 ---
 
@@ -238,10 +247,10 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 > El **higo chumbo** (*Opuntia ficus-indica*) es el fruto de la chumbera — planta típica de Canarias y el sur de España. Por fuera está lleno de espinas y parece difícil de manejar. Por dentro es dulce, jugoso y nutritivo. Es exactamente la metáfora de lo que queremos ser: software que parece directo y sin adornos, pero que por dentro entrega valor real. Además es auténtico, canario, y nadie en el mundo tech tiene un higo chumbo como logo.
 
-### Estado actual del negocio — 25 marzo 2026
+### Estado actual del negocio — 30 marzo 2026
 
 - Fundador técnico solo, sin inversión externa
-- Producto en **beta pública activa** — versión `beta-v0.0.5-20260325`
+- Producto en **beta pública activa** — versión `beta-v0.0.7-20260330`
 - Primeros usuarios reales en producción
 - Ingresos recurrentes vía Stripe (modelo SaaS mensual)
 - BD de producción limpia: cuentas root (`admin@siloe.com`, `juanrdzbaeza@gmail.com`) + tenant ANCOTUR (pruebas internas)
@@ -267,8 +276,10 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 7. **Footer** — © 2026 chumbo.io · enlaces legales · `soporte@chumbo.io`
 8. **Fuentes** Space Grotesk + Inter vía Fontsource
 9. **README.md** actualizado con instrucciones de desarrollo y despliegue en Cloudflare Pages
-10. **`package.json`** con scripts `dev`, `build`, `preview`
+10. **package.json** con scripts `dev`, `build`, `preview`
+11. **Migraciones / DB**: comprobar que `backend/migrations/20260330_add_force_password_change.sql` existe y que `backend/scripts/init-db.js` lo referencia (para que la migración se aplique en despliegues automáticos). Si no está referenciada, añadirla a `init-db.js`.
+12. **Tag & Release**: crear tag git `beta/v0.0.7-20260330` y preparar release notes mínimas en el changelog: destacar `force_password_change`, mejoras mobile-first y correcciones de duplicados en lecturas.
 
 ---
 
-*Brief actualizado: 25 marzo 2026 · chumbo.io · soporte@chumbo.io*
+*Brief actualizado: 30 marzo 2026 · chumbo.io · soporte@chumbo.io*
