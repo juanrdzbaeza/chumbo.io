@@ -22,9 +22,20 @@ const links = [
           <li><a href={l.href}>{l.label}</a></li>
         ))}
       </ul>
+      <!-- Spotify quick player: lazy-load into a popover to avoid third-party requests on first load -->
+      <button id="spotify-open" class="btn btn-ghost" aria-expanded="false" aria-label="Abrir reproductor de Spotify">🎧 Playlist</button>
+
       <a href="https://siloegenerator.chumbo.io" class="btn btn-primary nav-cta" target="_blank" rel="noopener">
         Acceder →
       </a>
+
+      <!-- Template with the iframe (kept inert until inserted). Do NOT remove — this prevents loading Spotify on first paint -->
+      <template id="spotify-template">
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5wBUGdR6ds7SuXZdqtlpvs?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </template>
+
+      <!-- Popover container where the iframe will be inserted when the user requests it -->
+      <div id="spotify-popover" class="spotify-popover" aria-hidden="true"></div>
     </div>
   </div>
 </nav>
@@ -36,6 +47,34 @@ const links = [
     const open = menu.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(open));
   });
+
+  // Spotify popover lazy-load
+  const spBtn = document.getElementById('spotify-open');
+  const spPopover = document.getElementById('spotify-popover');
+  const spTemplate = document.getElementById('spotify-template');
+  let spLoaded = false;
+  if (spBtn && spPopover && spTemplate) {
+    spBtn.addEventListener('click', function () {
+      const expanded = spBtn.getAttribute('aria-expanded') === 'true';
+      if (!expanded && !spLoaded) {
+        // insert iframe from template
+        spPopover.innerHTML = spTemplate.innerHTML;
+        spLoaded = true;
+      }
+      spPopover.classList.toggle('is-open');
+      spBtn.setAttribute('aria-expanded', String(!expanded));
+      spPopover.setAttribute('aria-hidden', String(expanded));
+    });
+    // close popover when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!spPopover.classList.contains('is-open')) return;
+      const target = e.target;
+      if (target === spBtn || spBtn.contains(target) || spPopover.contains(target)) return;
+      spPopover.classList.remove('is-open');
+      spBtn.setAttribute('aria-expanded', 'false');
+      spPopover.setAttribute('aria-hidden', 'true');
+    });
+  }
 </script>
 
 <style>
@@ -88,6 +127,32 @@ nav {
 
 .nav-cta { padding: .5rem 1.25rem; font-size: .9rem; }
 
+.btn-ghost {
+  background: transparent;
+  color: var(--text-light);
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: .45rem .75rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.spotify-popover {
+  display: none;
+  position: absolute;
+  right: 2rem;
+  top: 64px;
+  width: 360px;
+  max-width: calc(100% - 4rem);
+  background: #0f0f0f;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: .75rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+  z-index: 200;
+}
+.spotify-popover.is-open { display: block; }
+
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -124,6 +189,8 @@ nav {
   .nav-menu.is-open { display: flex; }
   .nav-links { flex-direction: column; gap: .75rem; }
   .nav-cta { width: 100%; justify-content: center; }
+  /* On small screens the popover becomes part of the menu flow */
+  .spotify-popover { position: static; width: 100%; box-shadow: none; border-radius: 8px; padding: .5rem 0; }
 }
 </style>
 

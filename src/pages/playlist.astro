@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SpotifyPlaylist from '../components/SpotifyPlaylist.astro';
+
+const iframe = `<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5wBUGdR6ds7SuXZdqtlpvs?utm_source=generator&theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
+---
+
+<Layout>
+  <Nav />
+
+  <main class="container" style="padding:4rem 0;">
+    <h1 style="margin:0 0 1rem;">La playlist de chumbo</h1>
+    <p style="color:var(--text-muted); margin:0 0 1.5rem;">Música para depurar código, escribir release notes y sobrevivir a la beta. Reproductor cargado bajo demanda para respetar tu privacidad.</p>
+
+    <SpotifyPlaylist iframeHtml={iframe} title="Playlist de chumbo" />
+  </main>
+
+  <Footer />
+</Layout>
+
