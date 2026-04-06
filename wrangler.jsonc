@@ -1,9 +1,11 @@
 {
-	// Configuración para Cloudflare Pages (SSG estático — sin Worker)
-	// El build genera dist/ y Cloudflare Pages lo sirve directamente.
-	// No usar "main" aquí: ese campo es para Workers SSR, no para Pages estáticas.
+	// Workers with Assets — sitio estático servido via Cloudflare Workers
+	// Sin "main": solo assets estáticos, sin Worker script.
+	// "wrangler versions upload" sube dist/ y Cloudflare lo sirve directamente.
 	"name": "chumbo-io",
-	"pages_build_output_dir": "dist",
 	"compatibility_date": "2026-03-17",
-	"compatibility_flags": ["nodejs_compat"]
+	"compatibility_flags": ["nodejs_compat"],
+	"assets": {
+		"directory": "./dist"
+	}
 }
