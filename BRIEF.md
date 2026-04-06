@@ -93,6 +93,7 @@
 | **Nombre** | DNIBridge |
 | **Subtítulo** | Verificación del QR dinámico de MiDNI |
 | **Repositorio** | Proyecto separado (`DNIBridge`) |
+| **URL pre-release** | https://dnibridge-pre.chumbo.io |
 | **Qué hace** | Webapp que escanea, parsea y verifica criptográficamente el QR del DNI digital español (MiDNI), sin hardware adicional. |
 | **Marco legal** | Real Decreto 255/2025 (aceptación obligatoria del DNI digital desde 2026-04-02) |
 | **Stack** | Vue 3 + Vite + `qr-scanner` + `jsQR` + `@zxing/library` |
@@ -111,6 +112,7 @@ Notas para la web corporativa:
 chumbo.io                          →  web corporativa (este proyecto)
 siloegenerator.chumbo.io           →  app frontend (Railway · CNAME)
 api.chumbo.io                      →  backend API (Railway · CNAME)
+dnibridge-pre.chumbo.io            →  DNIBridge pre-release (Cloudflare Workers)
 noreply@siloegenerator.chumbo.io   →  emails transaccionales (Resend · SPF+DKIM verificados)
 soporte@chumbo.io                  →  redirige a email personal del fundador (Cloudflare Email Routing)
 ```
