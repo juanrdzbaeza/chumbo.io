@@ -2,7 +2,7 @@
 	// Workers with Assets — sitio estático servido via Cloudflare Workers
 	// Sin "main": solo assets estáticos, sin Worker script.
 	// "wrangler versions upload" sube dist/ y Cloudflare lo sirve directamente.
-	"name": "chumbo-io",
+	"name": "chumbo",
 	"compatibility_date": "2026-03-17",
 	"compatibility_flags": ["nodejs_compat"],
 	"assets": {
