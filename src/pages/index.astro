@@ -6,20 +6,27 @@ import Problem from '../components/Problem.astro';
 import Solution from '../components/Solution.astro';
 import SocialProof from '../components/SocialProof.astro';
 import PricingCards from '../components/PricingCards.astro';
+import BetaPublic from '../components/BetaPublic.astro';
 import About from '../components/About.astro';
+import ActiveProjects from '../components/ActiveProjects.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 ---
 
-<Layout>
+<Layout
+  title="chumbo.io — Software que funciona. Sin humo."
+  description="Web corporativa de chumbo.io. SILOE Generator en produccion y DNIBridge en desarrollo activo."
+>
   <Nav />
   <main>
     <Hero />
     <Problem />
     <Solution />
-    <SocialProof />
+    <BetaPublic />
     <PricingCards />
+    <SocialProof />
     <About />
+    <ActiveProjects />
     <Contact />
   </main>
   <Footer />

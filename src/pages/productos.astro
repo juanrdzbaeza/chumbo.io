@@ -1,0 +1,161 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Productos — chumbo.io"
+  description="Productos activos de chumbo.io: SILOE Generator en produccion y DNIBridge en desarrollo activo."
+>
+  <Nav />
+  <main class="products-page">
+    <section class="products-hero">
+      <div class="container">
+        <span class="section-label section-label--dark">Productos</span>
+        <h1>Dos proyectos activos, foco total en producto real</h1>
+        <p>
+          chumbo.io desarrolla software vertical para problemas concretos.
+          Hoy estamos empujando fuerte en cumplimiento de piscinas y verificacion de identidad digital.
+        </p>
+      </div>
+    </section>
+
+    <section class="products-grid-wrap">
+      <div class="container products-grid">
+        <article class="product-card product-card--main">
+          <p class="product-status">En produccion</p>
+          <h2>SILOE Generator</h2>
+          <p class="product-sub">Libro Digital de Piscinas</p>
+          <p>
+            Sustituye el libro en papel/Excel, registra parametros diario, gestiona
+            laboratorio y genera el XML oficial para SILOE conforme al RD 742/2013.
+          </p>
+          <ul>
+            <li>Beta publica gratis temporal (1 establecimiento, 1 piscina)</li>
+            <li>Upgrade transparente a Starter, Pro o Enterprise</li>
+            <li>Infraestructura productiva con Stripe, Railway y Resend</li>
+          </ul>
+          <div class="product-actions">
+            <a href="https://siloegenerator.chumbo.io/precios" class="btn btn-primary" target="_blank" rel="noopener">
+              Probar gratis ->
+            </a>
+            <a href="/precios" class="btn btn-outline-dark">Ver planes</a>
+          </div>
+        </article>
+
+        <article class="product-card">
+          <p class="product-status">Desarrollo activo</p>
+          <h2>DNIBridge</h2>
+          <p class="product-sub">Verificacion del QR dinamico de MiDNI</p>
+          <p>
+            Webapp para escanear, parsear y verificar criptograficamente el QR del
+            DNI digital espanol sin hardware adicional.
+          </p>
+          <ul>
+            <li>Validacion ECDSA P-256 operativa</li>
+            <li>Pruebas activas en iOS y mejora de robustez de lectura</li>
+            <li>Siguientes pasos hacia integracion con SES Hospedajes</li>
+          </ul>
+          <p class="product-note">
+            Todavia no hay planes comerciales publicos para DNIBridge.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+.products-page {
+  background: var(--bg-light);
+}
+
+.products-hero {
+  padding: 5rem 0 2.5rem;
+}
+
+.products-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  color: var(--text-dark);
+  max-width: 780px;
+  margin-bottom: .9rem;
+}
+
+.products-hero p {
+  color: var(--text-muted);
+  max-width: 760px;
+}
+
+.products-grid-wrap {
+  padding: 1rem 0 6rem;
+}
+
+.products-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.product-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+}
+
+.product-card--main {
+  border-color: rgba(155, 29, 53, 0.45);
+  box-shadow: 0 0 0 2px rgba(155, 29, 53, 0.14);
+}
+
+.product-status {
+  font-family: var(--font-heading);
+  font-size: .74rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--chumbo-skin);
+  margin-bottom: .5rem;
+}
+
+.product-card h2 {
+  color: var(--text-dark);
+  font-size: 1.5rem;
+}
+
+.product-sub {
+  color: var(--text-muted);
+  margin-bottom: .8rem;
+}
+
+.product-card p,
+.product-card li {
+  color: var(--text-muted);
+  font-size: .93rem;
+  line-height: 1.65;
+}
+
+.product-card ul {
+  margin: .9rem 0 1.2rem;
+  padding-left: 1.15rem;
+}
+
+.product-actions {
+  display: flex;
+  gap: .8rem;
+  flex-wrap: wrap;
+}
+
+.product-note {
+  margin-top: .95rem;
+  font-style: italic;
+}
+
+@media (max-width: 820px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+

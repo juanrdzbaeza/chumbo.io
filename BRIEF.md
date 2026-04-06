@@ -2,7 +2,7 @@
 
 > 📋 Este fichero es el **contexto completo** para construir la web corporativa de chumbo.io.
 > Dáselo al agente/copilot que vaya a implementar o actualizar el proyecto.
-> **Última actualización: 30 marzo 2026**
+> **Última actualización: 6 abril 2026**
 
 ---
 
@@ -15,6 +15,7 @@
 | **Fundador** | Juan (solo founder) |
 | **Email soporte** | soporte@chumbo.io (redirige a email personal del fundador) |
 | **Dominio** | chumbo.io (registrado en Cloudflare) |
+| **Proyectos activos** | SILOE Generator + DNIBridge |
 | **Personalidad de marca** | Directa, un pelín gamberra, sin florituras corporativas. Cercana, honesta, técnica pero accesible. Anti-marketing de humo. |
 | **Tagline candidato** | *"Software que funciona. Sin humo."* |
 
@@ -26,9 +27,11 @@
 
 ---
 
-## 2. El producto actual — Siloe-Generator
+## 2. Productos actuales
 
-> El único producto hoy. La web de chumbo.io es su escaparate.
+> chumbo.io ya tiene producto en producción (SILOE Generator) y también desarrolla DNIBridge.
+
+### 2.1 SILOE Generator (producto principal actual)
 
 | Campo | Valor |
 |---|---|
@@ -82,6 +85,23 @@
 - ✅ Migración `20260330_add_force_password_change.sql` añadida (campo `force_password_change` en users)
 - ✅ Forzar cambio de contraseña (feature ready, pendiente de pruebas e2e)
 - 🔄 Pendiente: feedback de primeros usuarios beta reales
+
+### 2.2 DNIBridge (nuevo proyecto activo)
+
+| Campo | Valor |
+|---|---|
+| **Nombre** | DNIBridge |
+| **Subtítulo** | Verificación del QR dinámico de MiDNI |
+| **Repositorio** | Proyecto separado (`DNIBridge`) |
+| **Qué hace** | Webapp que escanea, parsea y verifica criptográficamente el QR del DNI digital español (MiDNI), sin hardware adicional. |
+| **Marco legal** | Real Decreto 255/2025 (aceptación obligatoria del DNI digital desde 2026-04-02) |
+| **Stack** | Vue 3 + Vite + `qr-scanner` + `jsQR` + `@zxing/library` |
+| **Estado (abril 2026)** | Decodificación robusta en cascada, validación ECDSA P-256 operativa, pruebas activas en iOS y siguientes pasos hacia integración con SES Hospedajes. |
+
+Notas para la web corporativa:
+- Mostrar DNIBridge como **proyecto en desarrollo activo** de chumbo.io.
+- No mezclar pricing de SILOE con DNIBridge (DNIBridge no tiene planes comerciales públicos definidos todavía).
+- Mantener CTA principal de negocio en SILOE Generator, pero mencionar DNIBridge en `/productos` y en Home.
 
 ---
 
@@ -189,7 +209,7 @@ Custom domain:  chumbo.io
 
 ```
 /           →  Home / Landing page principal
-/productos  →  Detalle de Siloe-Generator (o sección en home)
+/productos  →  Detalle de productos: SILOE Generator + DNIBridge
 /precios    →  Planes y precios (con CTA → siloegenerator.chumbo.io)
 /legal      →  Aviso legal + política de privacidad
 /contacto   →  mailto directo soporte@chumbo.io
@@ -204,8 +224,9 @@ Custom domain:  chumbo.io
 5. **Planes y precios** — Las **4 cards en una sola fila**: Beta gratis · Starter 69€ · Pro 129€ · Enterprise 299€
 6. **Cumplimiento legal** — RD 742/2013, XML SILOE, trazabilidad
 7. **Sobre chumbo.io** — 2-3 líneas honestas sobre el fundador y la misión
-8. **Contacto** — `soporte@chumbo.io`
-9. **Footer** — © chumbo.io · Aviso legal · `soporte@chumbo.io` · versión
+8. **Proyectos activos** — mini bloque con SILOE Generator (producción) + DNIBridge (activo en desarrollo)
+9. **Contacto** — `soporte@chumbo.io`
+10. **Footer** — © chumbo.io · Aviso legal · `soporte@chumbo.io` · versión
 
 ### ⚠️ Sobre la sección de precios (4 tarjetas en fila)
 
@@ -255,6 +276,7 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 - Ingresos recurrentes vía Stripe (modelo SaaS mensual)
 - BD de producción limpia: cuentas root (`admin@siloe.com`, `juanrdzbaeza@gmail.com`) + tenant ANCOTUR (pruebas internas)
 - Infraestructura: Railway (EU West · Amsterdam) + Cloudflare + Resend + Stripe
+- DNIBridge activo como segunda línea de producto (identidad digital / verificación MiDNI)
 
 ---
 
@@ -279,7 +301,8 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 10. **package.json** con scripts `dev`, `build`, `preview`
 11. **Migraciones / DB**: comprobar que `backend/migrations/20260330_add_force_password_change.sql` existe y que `backend/scripts/init-db.js` lo referencia (para que la migración se aplique en despliegues automáticos). Si no está referenciada, añadirla a `init-db.js`.
 12. **Tag & Release**: crear tag git `beta/v0.0.7-20260330` y preparar release notes mínimas en el changelog: destacar `force_password_change`, mejoras mobile-first y correcciones de duplicados en lecturas.
+13. **Contenido corporativo actualizado**: reflejar explícitamente en Home y `/productos` que chumbo.io también desarrolla **DNIBridge** (sin crear pricing inventado para ese proyecto).
 
 ---
 
-*Brief actualizado: 30 marzo 2026 · chumbo.io · soporte@chumbo.io*
+*Brief actualizado: 6 abril 2026 · chumbo.io · soporte@chumbo.io*

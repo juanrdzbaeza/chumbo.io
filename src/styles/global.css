@@ -1,11 +1,6 @@
-/* ── Fuentes self-hosted (sin Google Fonts) ──────────────────── */
-@import "@fontsource/space-grotesk/400.css";
-@import "@fontsource/space-grotesk/500.css";
-@import "@fontsource/space-grotesk/700.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/500.css";
-
 /* ── Variables de la paleta de marca ─────────────────────────── */
+/* Nota: las fuentes se importan en Layout.astro frontmatter para que Vite */
+/* resuelva correctamente los paths woff/woff2 en dev mode y en build.     */
 :root {
   --chumbo-skin:  #9B1D35;
   --chumbo-flesh: #F4A523;

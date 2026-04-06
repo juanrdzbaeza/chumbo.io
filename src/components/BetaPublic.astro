@@ -1,0 +1,55 @@
+<section class="beta-public" id="beta">
+  <div class="container beta-inner">
+    <div>
+      <span class="section-label section-label--dark">Beta publica gratuita</span>
+      <h2>Pruébalo sin tarjeta y sin riesgo</h2>
+      <p>
+        Durante la beta publica puedes usar SILOE Generator gratis con
+        <strong> 1 establecimiento y 1 piscina</strong>. Si te convence, haces upgrade a un
+        plan de pago y mantienes todos tus datos.
+      </p>
+    </div>
+    <a
+      href="https://siloegenerator.chumbo.io/precios#beta"
+      class="btn btn-primary"
+      target="_blank"
+      rel="noopener"
+    >
+      Probar gratis ahora ->
+    </a>
+  </div>
+</section>
+
+<style>
+.beta-public {
+  background: var(--bg-white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4.5rem 0;
+}
+
+.beta-inner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: center;
+}
+
+.beta-public h2 {
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  color: var(--text-dark);
+  margin-bottom: .75rem;
+}
+
+.beta-public p {
+  max-width: 700px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .beta-inner {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
