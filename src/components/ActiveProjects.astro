@@ -1,0 +1,106 @@
+---
+const projects = [
+  {
+    name: 'SILOE Generator',
+    status: 'En produccion',
+    desc: 'Libro Digital de Piscinas con registro diario, laboratorio y XML oficial para SILOE (RD 742/2013).',
+    ctaLabel: 'Ver precios',
+    ctaHref: 'https://siloegenerator.chumbo.io/precios',
+    external: true,
+  },
+  {
+    name: 'DNIBridge',
+    status: 'Desarrollo activo',
+    desc: 'Verificacion criptografica del QR dinamico de MiDNI, sin hardware extra y con foco en integracion real.',
+    ctaLabel: 'Ver productos',
+    ctaHref: '/productos',
+    external: false,
+  },
+];
+---
+
+<section class="active-projects" id="proyectos">
+  <div class="container">
+    <span class="section-label section-label--dark">Proyectos activos</span>
+    <h2>Construimos producto real, no solo una landing</h2>
+
+    <div class="projects-grid">
+      {projects.map((project) => (
+        <article class="project-card">
+          <p class="project-status">{project.status}</p>
+          <h3>{project.name}</h3>
+          <p>{project.desc}</p>
+          <a
+            href={project.ctaHref}
+            class="btn btn-outline-dark"
+            target={project.external ? '_blank' : undefined}
+            rel={project.external ? 'noopener' : undefined}
+          >
+            {project.ctaLabel}
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.active-projects {
+  background: var(--bg-white);
+  border-top: 1px solid var(--border);
+  padding: 6rem 0;
+}
+
+.active-projects h2 {
+  font-size: clamp(1.7rem, 3vw, 2.25rem);
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.projects-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.project-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  background: var(--bg-light);
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+}
+
+.project-status {
+  font-size: .76rem;
+  font-family: var(--font-heading);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--chumbo-skin);
+}
+
+.project-card h3 {
+  font-size: 1.25rem;
+  color: var(--text-dark);
+}
+
+.project-card p {
+  color: var(--text-muted);
+  font-size: .93rem;
+  line-height: 1.6;
+}
+
+.project-card .btn {
+  margin-top: .35rem;
+  width: fit-content;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+

@@ -15,9 +15,10 @@ const year = new Date().getFullYear();
       <div class="footer-nav-col">
         <h4>Producto</h4>
         <ul>
-          <li><a href="/#producto">Siloe-Generator</a></li>
+          <li><a href="/productos">SILOE Generator</a></li>
+          <li><a href="/productos">DNIBridge</a></li>
           <li><a href="/precios">Precios</a></li>
-          <li><a href="https://siloegenerator.chumbo.io" target="_blank" rel="noopener">Acceder →</a></li>
+          <li><a href="https://siloegenerator.chumbo.io/precios" target="_blank" rel="noopener">Probar gratis -></a></li>
         </ul>
       </div>
       <div class="footer-nav-col">
@@ -25,7 +26,6 @@ const year = new Date().getFullYear();
         <ul>
           <li><a href="/#sobre">Sobre chumbo.io</a></li>
           <li><a href="/contacto">Contacto</a></li>
-          <li><a href="/playlist">Playlist</a></li>
           <li><a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a></li>
         </ul>
       </div>
@@ -42,10 +42,8 @@ const year = new Date().getFullYear();
 
   <div class="footer-bottom">
     <div class="container">
-      <span>© {year} chumbo.io — Todos los derechos reservados.</span>
-      <span class="footer-love">
-        Hecho con 🌵 en España
-      </span>
+      <span>© {year} chumbo.io · <a href="/legal">Aviso legal</a> · <a href="mailto:soporte@chumbo.io">soporte@chumbo.io</a></span>
+      <span class="footer-love">SILOE Generator version beta-v0.0.7-20260330</span>
     </div>
   </div>
 </footer>
@@ -125,6 +123,10 @@ const year = new Date().getFullYear();
 .footer-bottom span {
   font-size: .8rem;
   color: #4b5563;
+}
+
+.footer-bottom a {
+  color: #6b7280;
 }
 
 .footer-love { font-size: .8rem !important; }

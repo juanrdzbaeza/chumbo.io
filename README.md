@@ -2,9 +2,28 @@
 
 Web corporativa de **chumbo.io**, empresa detrás de [SILOE Generator](https://siloegenerator.chumbo.io).
 
+Incluye también la presentación de **DNIBridge** como proyecto en desarrollo activo.
+
 Construida con **Astro** (SSG) → desplegada en **Cloudflare Pages**.
 
 ---
+
+## Prerequisito: Node ≥ 18
+
+El proyecto usa **Astro 6** que requiere Node ≥ 18. El sistema puede tener Node 12 como versión por defecto.
+Usamos **nvm** para gestionar la versión correcta:
+
+```bash
+# Primera vez: instalar nvm (si no está)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+source ~/.bashrc
+
+# Instalar y usar el Node LTS
+nvm install --lts
+nvm use --lts          # v24.x actualmente
+```
+
+Una vez instalado nvm y Node LTS, al abrir un terminal nuevo se carga automáticamente.
 
 ## Desarrollo local
 
@@ -12,6 +31,9 @@ Construida con **Astro** (SSG) → desplegada en **Cloudflare Pages**.
 npm install
 npm run dev        # http://localhost:4321
 ```
+
+> **IntelliJ:** Las run configurations `.run/dev.run.xml` y `.run/build.run.xml` ya están configuradas
+> apuntando a `/home/juan/.nvm/versions/node/v24.14.1/bin/node`. Aparecerán en el menú de Run.
 
 ## Build y preview
 
@@ -30,13 +52,16 @@ src/
 │   ├── Hero.astro
 │   ├── Problem.astro
 │   ├── Solution.astro
+│   ├── BetaPublic.astro
 │   ├── SocialProof.astro
 │   ├── PricingCards.astro     # reutilizado en / y /precios
 │   ├── About.astro
+│   ├── ActiveProjects.astro
 │   ├── Contact.astro
 │   └── Footer.astro
 ├── pages/
 │   ├── index.astro            # Home
+│   ├── productos.astro         # SILOE Generator + DNIBridge
 │   ├── precios.astro          # Planes y precios
 │   ├── legal.astro            # Aviso legal / privacidad / cookies
 │   └── contacto.astro         # Contacto
