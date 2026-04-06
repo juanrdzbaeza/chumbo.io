@@ -1,0 +1,77 @@
+---
+const { iframeHtml = '', playlistId = '', title = 'La playlist de Chumbo' } = Astro.props;
+const uid = playlistId ? `sp-${playlistId.replace(/[^a-z0-9]/gi, '')}` : `sp-${Math.random().toString(36).slice(2,9)}`;
+const iframeSrc = playlistId ? `https://open.spotify.com/embed/playlist/${playlistId}` : '';
+---
+
+<section class="spotify" id={`spotify-${uid}`} aria-label={title}>
+  <div class="spotify-card">
+    <div class="spotify-art" aria-hidden="true">
+      <svg width="64" height="64" viewBox="0 0 168 168" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="168" height="168" rx="24" fill="#1DB954"/>
+        <path d="M119 116.5c-1.7 2.6-5.5 3.4-8.1 1.7-22.1-14.7-49.7-18-81-9.8-2.9.8-6-1-6.8-4-.8-2.9 1-6 4-6.8C66.4 93 96 96.8 121.6 112.1c2.7 1.8 3.5 5.6 1.4 8.4z" fill="#fff"/>
+      </svg>
+    </div>
+
+    <div class="spotify-meta">
+      <h3>{title}</h3>
+      <p class="muted">Carga el reproductor de Spotify: no se contactará con Spotify hasta que pulses "Cargar reproductor".</p>
+
+      <div class="spotify-actions">
+        {iframeHtml || playlistId ? (
+          <>
+            <button class="btn" id={`spotify-load-${uid}`} type="button" data-src={iframeSrc} data-html={iframeHtml}>Cargar reproductor</button>
+            <a class="btn btn-outline" href={playlistId ? `https://open.spotify.com/playlist/${playlistId}` : 'https://open.spotify.com'} target="_blank" rel="noopener">Abrir en Spotify</a>
+          </>
+        ) : (
+          <a class="btn" href="https://open.spotify.com" target="_blank" rel="noopener">Ir a Spotify</a>
+        )}
+      </div>
+
+      <div class="spotify-frame" id={`spotify-frame-${uid}`} aria-hidden="true"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+.spotify { margin: 2.25rem 0; }
+.spotify-card { display:flex; gap:1rem; align-items:center; background: var(--bg-light); border-radius: 12px; padding: 1rem; border: 1px solid rgba(0,0,0,0.06); }
+.spotify-art { flex: 0 0 64px; }
+.spotify-meta h3 { margin: 0 0 .25rem 0; font-size:1.05rem; }
+.muted { color: #6b7280; margin:0 0 .75rem 0; font-size:.95rem; }
+.spotify-actions { display:flex; gap:.5rem; flex-wrap:wrap; }
+.spotify-frame { width: 100%; margin-top: 1rem; min-height: 80px; }
+@media (max-width: 700px) { .spotify-card { flex-direction: row; } .spotify-frame iframe { min-height: 200px; } }
+.btn { background:var(--chumbo-flesh); color:#111; padding:.5rem .75rem; border-radius:8px; border:0; cursor:pointer; font-weight:600; }
+.btn-outline { background:transparent; border:1px solid rgba(0,0,0,0.08); color:inherit; padding:.45rem .7rem; border-radius:8px; text-decoration:none; }
+</style>
+
+<script type="module">
+  // code runs client-side; we use data attributes to avoid leaking server variables
+  // attach handlers to any spotify-load-* buttons on the page
+  Array.from(document.querySelectorAll('[id^="spotify-load-"]')).forEach(function (loadBtn) {
+    const frameId = 'spotify-frame-' + loadBtn.id.replace('spotify-load-', '');
+    const frameContainer = document.getElementById(frameId);
+    if (!loadBtn || !frameContainer) return;
+    loadBtn.addEventListener('click', function () {
+      const html = loadBtn.getAttribute('data-html');
+      const src = loadBtn.getAttribute('data-src');
+      if (html) {
+        // insert provided iframe HTML (trusted: repo owner)
+        frameContainer.innerHTML = html;
+      } else if (src) {
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', src);
+        iframe.setAttribute('width', '100%');
+        iframe.setAttribute('height', '380');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'encrypted-media; clipboard-write; autoplay; fullscreen; picture-in-picture');
+        iframe.style.borderRadius = '8px';
+        frameContainer.innerHTML = '';
+        frameContainer.appendChild(iframe);
+      }
+      loadBtn.disabled = true;
+      loadBtn.textContent = 'Reproductor cargado';
+    });
+  });
+</script>

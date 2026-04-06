@@ -21,8 +21,3 @@ Thumbs.db
 .vscode/
 *.swp
 
-
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
