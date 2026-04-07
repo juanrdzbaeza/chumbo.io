@@ -99,12 +99,14 @@
 | **Qué hace** | Webapp que escanea, parsea y verifica criptográficamente el QR del DNI digital español (MiDNI), sin hardware adicional. |
 | **Marco legal** | Real Decreto 255/2025 (aceptación obligatoria del DNI digital desde 2026-04-02) |
 | **Stack** | Vue 3 + Vite + `qr-scanner` + `jsQR` + `@zxing/library` |
-| **Estado (abril 2026)** | Decodificación robusta en cascada, validación ECDSA P-256 operativa, pruebas activas en iOS y siguientes pasos hacia integración con SES Hospedajes. |
+| **Estado (abril 2026)** | ✅ Validado con DNI real (miDNI del fundador). Decodificación robusta en cascada, validación ECDSA P-256 operativa, pruebas activas en iOS. Contacto iniciado con la Dirección General de la Policía Nacional (petición vía sede electrónica). Foco geográfico inicial: **Canarias como laboratorio turístico**. Siguientes pasos: integración con SES Hospedajes y evolución hacia mercado UE. |
 
 Notas para la web corporativa:
 - Mostrar DNIBridge como **proyecto en desarrollo activo** de chumbo.io.
 - No mezclar pricing de SILOE con DNIBridge (DNIBridge no tiene planes comerciales públicos definidos todavía).
 - Mantener CTA principal de negocio en SILOE Generator, pero mencionar DNIBridge en `/productos` y en Home.
+- Mencionar el **foco inicial en Canarias** como laboratorio turístico — mercado UE como horizonte, no como promesa hoy.
+- Mencionar que funciona con **DNI real** (validación criptográfica operativa).
 
 ---
 
