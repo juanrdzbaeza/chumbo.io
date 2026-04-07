@@ -10,7 +10,9 @@
 
 | Campo | Valor |
 |---|---|
-| **Nombre** | chumbo.io |
+| **Nombre comercial** | chumbo.io |
+| **Razón social** | Chumbosoft, S.L. *(inscrita en el Registro Mercantil Central)* |
+| **Marca registrada** | Logo-chumbosoft registrado en la Oficina Española de Patentes y Marcas (OEPM) — en trámite de concesión |
 | **Tipo** | Software startup española — indie/bootstrapped |
 | **Fundador** | Juan (solo founder) |
 | **Email soporte** | soporte@chumbo.io (redirige a email personal del fundador) |
@@ -270,9 +272,11 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 > El **higo chumbo** (*Opuntia ficus-indica*) es el fruto de la chumbera — planta típica de Canarias y el sur de España. Por fuera está lleno de espinas y parece difícil de manejar. Por dentro es dulce, jugoso y nutritivo. Es exactamente la metáfora de lo que queremos ser: software que parece directo y sin adornos, pero que por dentro entrega valor real. Además es auténtico, canario, y nadie en el mundo tech tiene un higo chumbo como logo.
 
-### Estado actual del negocio — 30 marzo 2026
+### Estado actual del negocio — 7 abril 2026
 
 - Fundador técnico solo, sin inversión externa
+- **Chumbosoft, S.L.** inscrita en el Registro Mercantil Central ✅
+- **Logo-chumbosoft registrado en la OEPM** (marca en trámite de concesión) ✅
 - Producto en **beta pública activa** — versión `beta-v0.0.7-20260330`
 - Primeros usuarios reales en producción
 - Ingresos recurrentes vía Stripe (modelo SaaS mensual)
@@ -307,4 +311,4 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 ---
 
-*Brief actualizado: 6 abril 2026 · chumbo.io · soporte@chumbo.io*
+*Brief actualizado: 7 abril 2026 · chumbo.io · soporte@chumbo.io*
