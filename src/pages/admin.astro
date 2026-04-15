@@ -1,0 +1,558 @@
+---
+// /admin — Mini cliente de correo privado · Chumbosoft
+// Página oculta — no indexada, no en nav, no en sitemap
+export const prerender = true;
+---
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin Mail · Chumbosoft</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <style>
+    /* ── Variables marca ───────────────────────────────── */
+    :root {
+      --skin:   #9B1D35;
+      --dark:   #6E1225;
+      --flesh:  #F4A523;
+      --bg:     #0f0f0f;
+      --surface:#1a1a1a;
+      --card:   #222222;
+      --border: #2e2e2e;
+      --text:   #f0f0f0;
+      --muted:  #8a8a8a;
+      --radius: 10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+    }
+
+    /* ── Lock screen ────────────────────────────────────── */
+    #lock-screen {
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+    }
+
+    .lock-logo {
+      height: 40px;
+      filter: brightness(0) invert(1);
+      margin-bottom: 28px;
+    }
+
+    .lock-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .lock-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .lock-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* ── Composer ───────────────────────────────────────── */
+    #composer {
+      width: 100%;
+      max-width: 720px;
+      display: none;
+    }
+
+    .composer-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .composer-logo {
+      height: 32px;
+      filter: brightness(0) invert(1);
+    }
+
+    .composer-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .composer-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .logout-btn {
+      margin-left: auto;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.72rem;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .logout-btn:hover { border-color: var(--skin); color: var(--skin); }
+
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input, textarea {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      transition: border-color .2s, box-shadow .2s;
+      outline: none;
+      width: 100%;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--skin);
+      box-shadow: 0 0 0 3px rgba(155, 29, 53, 0.15);
+    }
+
+    input::placeholder, textarea::placeholder { color: #555; }
+
+    textarea {
+      resize: vertical;
+      min-height: 260px;
+      line-height: 1.65;
+    }
+
+    /* ── Signature preview ─────────────────────────────── */
+    .sig-preview {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .sig-preview .sig-name { color: var(--text); font-weight: 700; font-size: 0.85rem; }
+    .sig-preview .sig-role { color: var(--muted); font-size: 0.75rem; }
+    .sig-preview .sig-brand { color: var(--skin); font-weight: 600; }
+    .sig-preview .sig-links { margin-top: 8px; font-size: 0.75rem; }
+    .sig-preview .sig-links a { color: var(--skin); text-decoration: none; }
+    .sig-preview .sig-disclaimer {
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 0.68rem;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    /* ── Buttons ───────────────────────────────────────── */
+    .btn-send {
+      background: linear-gradient(135deg, var(--skin) 0%, var(--dark) 100%);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: opacity .2s, transform .1s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .btn-send:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+    .btn-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-lock {
+      background: var(--skin);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: opacity .2s;
+      width: 100%;
+    }
+    .btn-lock:hover { opacity: 0.88; }
+
+    /* ── Feedback ──────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: none;
+      z-index: 9999;
+      max-width: 340px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
+    .toast.success { background: #166534; color: #bbf7d0; border: 1px solid #15803d; }
+    .toast.error   { background: #7f1d1d; color: #fecaca; border: 1px solid #991b1b; }
+
+    /* ── Divider label ─────────────────────────────────── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 4px;
+    }
+
+    .send-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .char-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ LOCK SCREEN ══════════════════════════════════════ -->
+  <div id="lock-screen">
+    <img src="/logo-chumbosoft.svg" alt="Chumbosoft" class="lock-logo" />
+    <p class="lock-title">Panel privado</p>
+    <p class="lock-sub">Introduce la contraseña para acceder al cliente de correo.</p>
+
+    <form class="lock-form" id="lock-form">
+      <input
+        type="password"
+        id="pwd-input"
+        placeholder="••••••••••••"
+        autocomplete="current-password"
+        required
+      />
+      <button type="submit" class="btn-lock">Acceder →</button>
+      <p id="lock-error" style="font-size:0.78rem; color:#f87171; display:none;">
+        ❌ Contraseña incorrecta
+      </p>
+    </form>
+  </div>
+
+  <!-- ══ COMPOSER ══════════════════════════════════════════ -->
+  <div id="composer">
+    <div class="composer-header">
+      <img src="/logo-chumbosoft.svg" alt="Chumbosoft" class="composer-logo" />
+      <div>
+        <p class="composer-title">Mini cliente · <span style="color:var(--skin)">juan@chumbo.io</span></p>
+        <p class="composer-sub">Correos con firma corporativa Chumbosoft</p>
+      </div>
+      <button class="logout-btn" id="logout-btn">Cerrar sesión</button>
+    </div>
+
+    <form class="form-grid" id="compose-form">
+
+      <div class="form-row">
+        <div class="field">
+          <label for="field-to">Para (To) *</label>
+          <input
+            type="text"
+            id="field-to"
+            placeholder="destinatario@ejemplo.com, otro@ejemplo.com"
+            required
+          />
+        </div>
+        <div class="field">
+          <label for="field-reply-to">Reply-To (opcional)</label>
+          <input
+            type="email"
+            id="field-reply-to"
+            placeholder="juan@chumbo.io"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="field-subject">Asunto *</label>
+        <input
+          type="text"
+          id="field-subject"
+          placeholder="Asunto del correo"
+          required
+        />
+      </div>
+
+      <div class="field">
+        <label for="field-body">Cuerpo del mensaje *</label>
+        <textarea
+          id="field-body"
+          placeholder="Escribe tu mensaje aquí...
+
+El texto se envía tal cual, con tu firma corporativa adjunta al final."
+          required
+        ></textarea>
+      </div>
+
+      <!-- Firma preview -->
+      <div>
+        <p class="section-label" style="margin-bottom:8px;">Vista previa de firma</p>
+        <div class="sig-preview">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+            <div>
+              <p class="sig-name">Juan Rodríguez Baeza</p>
+              <p class="sig-role">Fundador &amp; CEO · <span class="sig-brand">Chumbosoft, S.L.</span></p>
+            </div>
+          </div>
+          <div class="sig-links">
+            <span>📧 <a href="mailto:juan@chumbo.io">juan@chumbo.io</a></span>
+            &nbsp;·&nbsp;
+            <span>🌐 <a href="https://chumbo.io" target="_blank">chumbo.io</a></span>
+          </div>
+          <div class="sig-disclaimer">
+            <strong>Cláusula de Confidencialidad:</strong>
+            La información contenida en esta comunicación tiene carácter confidencial y está dirigida exclusivamente
+            a su destinatario. Si ha recibido este mensaje por error, notifíquelo al remitente y destrúyalo.
+            Chumbosoft, S.L. — Denominación reservada en el Registro Mercantil Central.
+          </div>
+        </div>
+      </div>
+
+      <div class="send-row">
+        <button type="submit" class="btn-send" id="send-btn">
+          <span id="send-icon">📨</span>
+          <span id="send-label">Enviar correo</span>
+        </button>
+        <span class="char-count" id="char-count">0 caracteres</span>
+      </div>
+
+    </form>
+  </div>
+
+  <!-- ══ TOAST ═════════════════════════════════════════════ -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ── State ─────────────────────────────────────────────
+    const SESSION_KEY = 'chumbo_admin_pwd';
+    const API_URL     = '/api/send-email';
+
+    const lockScreen  = document.getElementById('lock-screen');
+    const composer    = document.getElementById('composer');
+    const lockForm    = document.getElementById('lock-form');
+    const composeForm = document.getElementById('compose-form');
+    const pwdInput    = document.getElementById('pwd-input');
+    const lockError   = document.getElementById('lock-error');
+    const logoutBtn   = document.getElementById('logout-btn');
+    const sendBtn     = document.getElementById('send-btn');
+    const sendLabel   = document.getElementById('send-label');
+    const sendIcon    = document.getElementById('send-icon');
+    const bodyField   = document.getElementById('field-body');
+    const charCount   = document.getElementById('char-count');
+    const toast       = document.getElementById('toast');
+
+    // ── Toast helper ──────────────────────────────────────
+    function showToast(msg, type = 'success', duration = 4000) {
+      toast.textContent = msg;
+      toast.className = `toast ${type}`;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, duration);
+    }
+
+    // ── Auth check ────────────────────────────────────────
+    function getStoredPwd() {
+      return sessionStorage.getItem(SESSION_KEY) || '';
+    }
+
+    function showComposer() {
+      lockScreen.style.display = 'none';
+      composer.style.display = 'block';
+    }
+
+    function showLock() {
+      sessionStorage.removeItem(SESSION_KEY);
+      lockScreen.style.display = 'block';
+      composer.style.display = 'none';
+      pwdInput.value = '';
+      lockError.style.display = 'none';
+    }
+
+    // Si ya tiene sesión activa, ir al composer directamente
+    if (getStoredPwd()) showComposer();
+
+    // ── Char counter ──────────────────────────────────────
+    bodyField.addEventListener('input', () => {
+      const len = bodyField.value.length;
+      charCount.textContent = `${len.toLocaleString('es')} caracteres`;
+    });
+
+    // ── Lock form ─────────────────────────────────────────
+    lockForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const pwd = pwdInput.value.trim();
+      if (!pwd) return;
+
+      // Validamos contra el servidor con un test de envío en seco
+      const btn = lockForm.querySelector('button[type=submit]');
+      btn.disabled = true;
+      btn.textContent = 'Verificando…';
+
+      try {
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            password: pwd,
+            to: '_verify_only_@chumbo.io',
+            subject: '__verify__',
+            body_text: '__verify__',
+            _verify_only: true,
+          }),
+        });
+
+        if (res.status === 401) {
+          lockError.style.display = 'block';
+          btn.disabled = false;
+          btn.textContent = 'Acceder →';
+          return;
+        }
+
+        // Cualquier otra respuesta (incluso 422 por to inválido) = contraseña ok
+        sessionStorage.setItem(SESSION_KEY, pwd);
+        lockError.style.display = 'none';
+        showComposer();
+      } catch {
+        lockError.textContent = '⚠️ Error de red. Inténtalo de nuevo.';
+        lockError.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Acceder →';
+      }
+    });
+
+    // ── Logout ────────────────────────────────────────────
+    logoutBtn.addEventListener('click', showLock);
+
+    // ── Compose & send ────────────────────────────────────
+    composeForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const pwd      = getStoredPwd();
+      const to       = document.getElementById('field-to').value.trim();
+      const replyTo  = document.getElementById('field-reply-to').value.trim();
+      const subject  = document.getElementById('field-subject').value.trim();
+      const bodyText = bodyField.value.trim();
+
+      if (!to || !subject || !bodyText) {
+        showToast('⚠️ Completa todos los campos requeridos.', 'error');
+        return;
+      }
+
+      sendBtn.disabled = true;
+      sendIcon.textContent = '⏳';
+      sendLabel.textContent = 'Enviando…';
+
+      try {
+        const payload = {
+          password: pwd,
+          to,
+          subject,
+          body_text: bodyText,
+        };
+        if (replyTo) payload.reply_to = replyTo;
+
+        const res  = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (res.status === 401) {
+          showToast('🔒 Sesión expirada. Vuelve a iniciar sesión.', 'error', 5000);
+          showLock();
+          return;
+        }
+
+        if (!res.ok) {
+          showToast(`❌ Error al enviar: ${data.error || 'Error desconocido'}`, 'error', 6000);
+          return;
+        }
+
+        showToast(`✅ Correo enviado correctamente (id: ${data.id})`, 'success');
+
+        // Limpiar formulario
+        document.getElementById('field-to').value = '';
+        document.getElementById('field-reply-to').value = '';
+        document.getElementById('field-subject').value = '';
+        bodyField.value = '';
+        charCount.textContent = '0 caracteres';
+
+      } catch (err) {
+        showToast(`⚠️ Error de red: ${err.message}`, 'error', 6000);
+      } finally {
+        sendBtn.disabled = false;
+        sendIcon.textContent = '📨';
+        sendLabel.textContent = 'Enviar correo';
+      }
+    });
+  </script>
+
+</body>
+</html>
+
