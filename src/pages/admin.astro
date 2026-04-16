@@ -269,6 +269,63 @@ export const prerender = true;
       font-size: 0.75rem;
       color: var(--muted);
     }
+
+    /* ── Dropzone ──────────────────────────────────────── */
+    .dropzone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      position: relative;
+    }
+    .dropzone:hover, .dropzone.drag-over {
+      border-color: var(--skin);
+      background: rgba(155,29,53,.06);
+    }
+    .dropzone input[type=file] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .dropzone-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .dropzone-label strong { color: var(--skin); }
+
+    /* ── File list ─────────────────────────────────────── */
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      font-size: 0.8rem;
+    }
+    .file-item .file-name { flex: 1; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file-item .file-size { color: var(--muted); white-space: nowrap; }
+    .file-item .file-remove {
+      background: none; border: none; color: #666; cursor: pointer;
+      font-size: 1rem; padding: 0 2px; line-height: 1;
+      transition: color .15s;
+    }
+    .file-item .file-remove:hover { color: #f87171; }
+    .attach-total {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .attach-total.warn { color: #f59e0b; }
+    .attach-total.over { color: #f87171; }
   </style>
 </head>
 <body>
@@ -372,6 +429,20 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
         </div>
       </div>
 
+      <!-- Adjuntos -->
+      <div>
+        <p class="section-label" style="margin-bottom:8px;">Adjuntos (opcional)</p>
+        <div class="dropzone" id="dropzone">
+          <input type="file" id="file-input" multiple accept="*/*" tabindex="-1" />
+          <p class="dropzone-label">
+            📎 <strong>Haz clic</strong> o arrastra ficheros aquí<br/>
+            <span style="font-size:0.72rem;">Máx. 25 MB en total · PDF, DOCX, XLSX, imágenes…</span>
+          </p>
+        </div>
+        <div class="file-list" id="file-list"></div>
+        <p class="attach-total" id="attach-total"></p>
+      </div>
+
       <div class="send-row">
         <button type="submit" class="btn-send" id="send-btn">
           <span id="send-icon">📨</span>
@@ -390,6 +461,7 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
     // ── State ─────────────────────────────────────────────
     const SESSION_KEY = 'chumbo_admin_pwd';
     const API_URL     = '/api/send-email';
+    const MAX_BYTES   = 25 * 1024 * 1024; // 25 MB
 
     const lockScreen  = document.getElementById('lock-screen');
     const composer    = document.getElementById('composer');
@@ -404,6 +476,13 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
     const bodyField   = document.getElementById('field-body');
     const charCount   = document.getElementById('char-count');
     const toast       = document.getElementById('toast');
+    const dropzone    = document.getElementById('dropzone');
+    const fileInput   = document.getElementById('file-input');
+    const fileList    = document.getElementById('file-list');
+    const attachTotal = document.getElementById('attach-total');
+
+    // Ficheros seleccionados (Array de File)
+    let selectedFiles = [];
 
     // ── Toast helper ──────────────────────────────────────
     function showToast(msg, type = 'success', duration = 4000) {
@@ -414,9 +493,7 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
     }
 
     // ── Auth check ────────────────────────────────────────
-    function getStoredPwd() {
-      return sessionStorage.getItem(SESSION_KEY) || '';
-    }
+    function getStoredPwd() { return sessionStorage.getItem(SESSION_KEY) || ''; }
 
     function showComposer() {
       lockScreen.style.display = 'none';
@@ -431,13 +508,80 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
       lockError.style.display = 'none';
     }
 
-    // Si ya tiene sesión activa, ir al composer directamente
     if (getStoredPwd()) showComposer();
 
     // ── Char counter ──────────────────────────────────────
     bodyField.addEventListener('input', () => {
-      const len = bodyField.value.length;
-      charCount.textContent = `${len.toLocaleString('es')} caracteres`;
+      charCount.textContent = `${bodyField.value.length.toLocaleString('es')} caracteres`;
+    });
+
+    // ── File helpers ──────────────────────────────────────
+    function fmtBytes(b) {
+      if (b < 1024) return `${b} B`;
+      if (b < 1024 * 1024) return `${(b/1024).toFixed(1)} KB`;
+      return `${(b/1024/1024).toFixed(2)} MB`;
+    }
+
+    function renderFiles() {
+      fileList.innerHTML = '';
+      const total = selectedFiles.reduce((s, f) => s + f.size, 0);
+
+      selectedFiles.forEach((file, i) => {
+        const item = document.createElement('div');
+        item.className = 'file-item';
+        item.innerHTML = `
+          <span style="font-size:1rem;">📄</span>
+          <span class="file-name" title="${file.name}">${file.name}</span>
+          <span class="file-size">${fmtBytes(file.size)}</span>
+          <button class="file-remove" data-i="${i}" title="Eliminar adjunto">✕</button>
+        `;
+        fileList.appendChild(item);
+      });
+
+      fileList.querySelectorAll('.file-remove').forEach(btn => {
+        btn.addEventListener('click', () => {
+          selectedFiles.splice(parseInt(btn.dataset.i), 1);
+          renderFiles();
+        });
+      });
+
+      if (selectedFiles.length === 0) {
+        attachTotal.textContent = '';
+        attachTotal.className = 'attach-total';
+      } else {
+        const pct = total / MAX_BYTES;
+        attachTotal.textContent = `Total adjuntos: ${fmtBytes(total)} / 25 MB`;
+        attachTotal.className = 'attach-total' + (pct > 1 ? ' over' : pct > 0.8 ? ' warn' : '');
+      }
+    }
+
+    function addFiles(newFiles) {
+      for (const f of newFiles) {
+        // Evitar duplicados por nombre+tamaño
+        if (!selectedFiles.some(x => x.name === f.name && x.size === f.size)) {
+          selectedFiles.push(f);
+        }
+      }
+      renderFiles();
+    }
+
+    // Click en dropzone abre el file picker
+    dropzone.addEventListener('click', (e) => {
+      if (e.target !== fileInput) fileInput.click();
+    });
+
+    fileInput.addEventListener('change', () => {
+      addFiles(Array.from(fileInput.files));
+      fileInput.value = ''; // reset para poder añadir el mismo fichero de nuevo
+    });
+
+    // Drag & drop
+    dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('drag-over'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag-over'));
+    dropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropzone.classList.remove('drag-over');
+      addFiles(Array.from(e.dataTransfer.files));
     });
 
     // ── Lock form ─────────────────────────────────────────
@@ -446,7 +590,6 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
       const pwd = pwdInput.value.trim();
       if (!pwd) return;
 
-      // Validamos contra el servidor con un test de envío en seco
       const btn = lockForm.querySelector('button[type=submit]');
       btn.disabled = true;
       btn.textContent = 'Verificando…';
@@ -471,7 +614,6 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
           return;
         }
 
-        // Cualquier otra respuesta (incluso 422 por to inválido) = contraseña ok
         sessionStorage.setItem(SESSION_KEY, pwd);
         lockError.style.display = 'none';
         showComposer();
@@ -502,25 +644,30 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
         return;
       }
 
+      // Validar tamaño total de adjuntos
+      const totalBytes = selectedFiles.reduce((s, f) => s + f.size, 0);
+      if (totalBytes > MAX_BYTES) {
+        showToast('❌ Los adjuntos superan los 25 MB. Elimina alguno.', 'error', 5000);
+        return;
+      }
+
       sendBtn.disabled = true;
       sendIcon.textContent = '⏳';
-      sendLabel.textContent = 'Enviando…';
+      sendLabel.textContent = selectedFiles.length
+        ? `Enviando con ${selectedFiles.length} adjunto${selectedFiles.length > 1 ? 's' : ''}…`
+        : 'Enviando…';
 
       try {
-        const payload = {
-          password: pwd,
-          to,
-          subject,
-          body_text: bodyText,
-        };
-        if (replyTo) payload.reply_to = replyTo;
+        // Usamos FormData para poder incluir ficheros binarios
+        const fd = new FormData();
+        fd.append('password', pwd);
+        fd.append('to', to);
+        fd.append('subject', subject);
+        fd.append('body_text', bodyText);
+        if (replyTo) fd.append('reply_to', replyTo);
+        selectedFiles.forEach(f => fd.append('attachments', f, f.name));
 
-        const res  = await fetch(API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-
+        const res  = await fetch(API_URL, { method: 'POST', body: fd });
         const data = await res.json();
 
         if (res.status === 401) {
@@ -534,7 +681,8 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
           return;
         }
 
-        showToast(`✅ Correo enviado correctamente (id: ${data.id})`, 'success');
+        const adjMsg = data.attachments > 0 ? ` · ${data.attachments} adjunto${data.attachments > 1 ? 's' : ''}` : '';
+        showToast(`✅ Correo enviado correctamente${adjMsg} (id: ${data.id})`, 'success', 5000);
 
         // Limpiar formulario
         document.getElementById('field-to').value = '';
@@ -542,6 +690,8 @@ El texto se envía tal cual, con tu firma corporativa adjunta al final."
         document.getElementById('field-subject').value = '';
         bodyField.value = '';
         charCount.textContent = '0 caracteres';
+        selectedFiles = [];
+        renderFiles();
 
       } catch (err) {
         showToast(`⚠️ Error de red: ${err.message}`, 'error', 6000);

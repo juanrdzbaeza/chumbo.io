@@ -155,46 +155,94 @@ function buildEmailHtml(bodyHtml) {
 </html>`;
 }
 
+/** Convierte un File/Blob a base64 string (sin prefijo data:...) */
+async function fileToBase64(file) {
+  const buf = await file.arrayBuffer();
+  const bytes = new Uint8Array(buf);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary);
+}
+
 export async function onRequestPost({ request, env }) {
   // CORS preflight
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: CORS_HEADERS });
   }
 
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return new Response(JSON.stringify({ error: 'Body inválido' }), {
+  const contentType = request.headers.get('content-type') || '';
+  const adminPass   = env.MAIL_ADMIN_PASSWORD;
+
+  // ── Modo verify-only (JSON) — usado por el lock screen ─────────────────
+  if (contentType.includes('application/json')) {
+    let body;
+    try { body = await request.json(); } catch {
+      return new Response(JSON.stringify({ error: 'Body inválido' }), {
+        status: 400, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+      });
+    }
+    if (!adminPass || body.password !== adminPass) {
+      return new Response(JSON.stringify({ error: 'No autorizado' }), {
+        status: 401, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+      });
+    }
+    if (body._verify_only) {
+      return new Response(JSON.stringify({ ok: true, verified: true }), {
+        status: 200, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+      });
+    }
+    return new Response(JSON.stringify({ error: 'Bad request' }), {
       status: 400, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }
 
-  const { password, to, subject, body_text, reply_to, _verify_only } = body;
+  // ── Envío real (multipart/form-data) ────────────────────────────────────
+  let formData;
+  try { formData = await request.formData(); } catch {
+    return new Response(JSON.stringify({ error: 'FormData inválido' }), {
+      status: 400, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+    });
+  }
+
+  const password  = formData.get('password');
+  const to        = formData.get('to');
+  const subject   = formData.get('subject');
+  const body_text = formData.get('body_text');
+  const reply_to  = formData.get('reply_to') || '';
 
   // Validar contraseña
-  const adminPass = env.MAIL_ADMIN_PASSWORD;
   if (!adminPass || password !== adminPass) {
     return new Response(JSON.stringify({ error: 'No autorizado' }), {
       status: 401, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }
 
-  // Modo verificación de contraseña (login check) — no envía email
-  if (_verify_only) {
-    return new Response(JSON.stringify({ ok: true, verified: true }), {
-      status: 200, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
-    });
-  }
-
-  // Validar campos
+  // Validar campos requeridos
   if (!to || !subject || !body_text) {
     return new Response(JSON.stringify({ error: 'Faltan campos requeridos: to, subject, body_text' }), {
       status: 422, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
     });
   }
 
-  // Convertir saltos de línea en <br> para el HTML
+  // Adjuntos — pueden venir 0 o N ficheros con el key "attachments"
+  const attachments = [];
+  const files = formData.getAll('attachments');
+  const MAX_TOTAL_BYTES = 25 * 1024 * 1024; // 25 MB límite Resend
+  let totalBytes = 0;
+
+  for (const file of files) {
+    if (!file || !file.name || file.size === 0) continue;
+    totalBytes += file.size;
+    if (totalBytes > MAX_TOTAL_BYTES) {
+      return new Response(JSON.stringify({ error: 'El tamaño total de adjuntos supera los 25 MB.' }), {
+        status: 413, headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
+      });
+    }
+    const content = await fileToBase64(file);
+    attachments.push({ filename: file.name, content });
+  }
+
+  // Convertir saltos de línea en <br>
   const bodyHtml = body_text
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -211,9 +259,7 @@ export async function onRequestPost({ request, env }) {
     });
   }
 
-  const toAddresses = Array.isArray(to)
-    ? to
-    : to.split(',').map(s => s.trim()).filter(Boolean);
+  const toAddresses = to.split(',').map(s => s.trim()).filter(Boolean);
 
   const resendPayload = {
     from: 'Juan · Chumbosoft <juan@chumbo.io>',
@@ -223,6 +269,7 @@ export async function onRequestPost({ request, env }) {
   };
 
   if (reply_to) resendPayload.reply_to = reply_to;
+  if (attachments.length > 0) resendPayload.attachments = attachments;
 
   const resendRes = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -242,7 +289,7 @@ export async function onRequestPost({ request, env }) {
     });
   }
 
-  return new Response(JSON.stringify({ ok: true, id: resendData.id }), {
+  return new Response(JSON.stringify({ ok: true, id: resendData.id, attachments: attachments.length }), {
     status: 200,
     headers: { 'Content-Type': 'application/json', ...CORS_HEADERS },
   });
