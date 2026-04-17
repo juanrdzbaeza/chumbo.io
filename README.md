@@ -95,3 +95,12 @@ Ver [`BRIEF.md`](./BRIEF.md) para el contexto completo del proyecto.
 ---
 
 *© 2026 chumbo.io · soporte@chumbo.io*
+
+---
+
+Licencia
+--------
+
+Este repositorio es propietario — contacte soporte@chumbo.io para licencias y usos autorizados.
+
+
