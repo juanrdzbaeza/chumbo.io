@@ -8,18 +8,18 @@
 
 ## 1. La empresa
 
-| Campo | Valor |
-|---|---|
-| **Nombre comercial** | chumbo.io |
-| **Razón social** | Chumbosoft, S.L. *(inscrita en el Registro Mercantil Central)* |
-| **Marca registrada** | Logo-chumbosoft registrado en la Oficina Española de Patentes y Marcas (OEPM) — en trámite de concesión |
-| **Tipo** | Software startup española — indie/bootstrapped |
-| **Fundador** | Juan (solo founder) |
-| **Email soporte** | soporte@chumbo.io (redirige a email personal del fundador) |
-| **Dominio** | chumbo.io (registrado en Cloudflare) |
-| **Proyectos activos** | SILOE Generator + DNIBridge |
+| Campo                     | Valor                                                                                                                      |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| **Nombre comercial**      | chumbo.io                                                                                                                  |
+| **Razón social**          | Chumbosoft, S.L. *(inscrita en el Registro Mercantil Central)*                                                             |
+| **Marca registrada**      | Logo-chumbosoft registrado en la Oficina Española de Patentes y Marcas (OEPM) — en trámite de concesión                    |
+| **Tipo**                  | Software startup española — indie/bootstrapped                                                                             |
+| **Fundador**              | Juan (solo founder)                                                                                                        |
+| **Email soporte**         | soporte@chumbo.io (redirige a email personal del fundador)                                                                 |
+| **Dominio**               | chumbo.io (registrado en Cloudflare)                                                                                       |
+| **Proyectos activos**     | SILOE Generator + DNIBridge                                                                                                |
 | **Personalidad de marca** | Directa, un pelín gamberra, sin florituras corporativas. Cercana, honesta, técnica pero accesible. Anti-marketing de humo. |
-| **Tagline candidato** | *"Software que funciona. Sin humo."* |
+| **Tagline candidato**     | *"Software que funciona. Sin humo."*                                                                                       |
 
 ### Tono de escritura
 
@@ -35,28 +35,81 @@
 
 ### 2.1 SILOE Generator (producto principal actual)
 
-| Campo | Valor |
-|---|---|
-| **Nombre** | SILOE Generator |
-| **Subtítulo** | Libro Digital de Piscinas |
-| **URL producción** | https://siloegenerator.chumbo.io |
-| **URL API** | https://api.chumbo.io |
-| **Versión actual** | `beta-v0.0.7-20260330` |
-| **Qué hace** | Sustituye el libro de registro en papel/Excel de una piscina. Gestiona lecturas diarias de parámetros físico-químicos, genera el XML oficial para el sistema SILOE de Sanidad y gestiona muestras de laboratorio. |
-| **Marco legal** | Real Decreto 742/2013, de 27 de septiembre — criterios técnico-sanitarios de piscinas |
-| **Clientes objetivo** | Hoteles, campings, clubes deportivos, comunidades de vecinos — cualquier establecimiento con piscina de uso público en España |
-| **Stack** | Vue 3 + Vite · Node.js/Express · PostgreSQL · Railway · Stripe · Resend |
+| Campo                 | Valor                                                                                                                                                                                                             |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Nombre**            | SILOE Generator                                                                                                                                                                                                   |
+| **Subtítulo**         | Libro Digital de Piscinas                                                                                                                                                                                         |
+| **URL producción**    | https://siloegenerator.chumbo.io                                                                                                                                                                                  |
+| **URL API**           | https://api.chumbo.io                                                                                                                                                                                             |
+| **Versión actual**    | `beta-v0.0.7-20260330`                                                                                                                                                                                            |
+| **Qué hace**          | Sustituye el libro de registro en papel/Excel de una piscina. Gestiona lecturas diarias de parámetros físico-químicos, genera el XML oficial para el sistema SILOE de Sanidad y gestiona muestras de laboratorio. |
+| **Marco legal**       | Real Decreto 742/2013, de 27 de septiembre — criterios técnico-sanitarios de piscinas                                                                                                                             |
+| **Clientes objetivo** | Hoteles, campings, clubes deportivos, comunidades de vecinos — cualquier establecimiento con piscina de uso público en España                                                                                     |
+| **Stack**             | Vue 3 + Vite · Node.js/Express · PostgreSQL · Railway · Stripe · Resend                                                                                                                                           |
 
 ### Planes de precio ✅ confirmados en Stripe
 
-| Plan | Precio | Límites | Para quién |
-|---|---|---|---|
+| Plan                 | Precio     | Límites                       | Para quién                                            |
+|----------------------|------------|-------------------------------|-------------------------------------------------------|
 | 🌵 **Beta gratuita** | **Gratis** | 1 establecimiento · 1 piscina | Acceso público temporal durante la beta — sin tarjeta |
-| **Starter** | 69 €/mes | Hasta 2 piscinas | Pequeño establecimiento individual |
-| **Pro** | 129 €/mes | Hasta 6 piscinas | Establecimiento mediano o varios hoteles |
-| **Enterprise** | 299 €/mes | Sin límite | Cadenas hoteleras, empresas de mantenimiento |
+| **Starter**          | 69 €/mes   | Hasta 4 piscinas              | Pequeño establecimiento individual                    |
+| **Pro**              | 129 €/mes  | Hasta 9 piscinas              | Establecimiento mediano o varios hoteles              |
+| **Enterprise**       | 299 €/mes  | Hasta 20 piscinas             | Cadenas hoteleras, empresas de mantenimiento          |
+| **Platinum**         | -          | -                             | Contactar con soporte@chumbo.io para el caso          |
 
 > **Importante sobre la Beta gratuita:** Es temporal durante la beta pública. El usuario puede hacer upgrade a cualquier plan de pago sin perder sus datos (flujo transparente vía Stripe).
+
+### 🧠 Pricing v2 — en estudio (no implementado aún)
+
+> **Contexto:** El modelo de pricing v1 (límite por piscinas totales) tiene una vulnerabilidad: una empresa de mantenimiento puede meter todas las piscinas de 50 hoteles bajo un solo establecimiento y pagar el plan más barato. El modelo v2 busca cerrar ese gap y ser más justo con el volumen real.
+
+#### El problema del agregador
+
+Una empresa de mantenimiento que lleva 50 hoteles × 2 piscinas cada uno podría:
+1. Darse de alta con 1 establecimiento ficticio ("Gestión Piscinas S.L.")
+2. Meter las 100 piscinas ahí
+3. Pagar Enterprise → 299€/mes
+4. Descargar el XML, retocarlo a mano (texto plano) con el código de establecimiento y código de vaso de cada hotel real
+5. Subir manualmente a SILOE por cada hotel
+6. **Ahorro: 50 × 69€ = 3.450€ → paga solo 299€** 🚨
+
+**Nota legal:** quien retoca y sube el XML a SILOE asume la responsabilidad legal de ese XML. Si hay error o auditoría, el problema es del usuario, no de Chumbosoft.
+
+#### Modelo v2 propuesto: volume pricing por piscinas (con techo)
+
+Precio por piscina que decrece con el volumen, pero **siempre con un máximo** (no infinito).
+El establecimiento más grande estimado en Canarias: ~100 piscinas (hotel de lujo con piscina por habitación).
+
+| Tramo | Piscinas incluidas | Precio/piscina | Total/mes aprox. | Nombre sugerido |
+|---|---|---|---|---|
+| 🌵 Beta | 1 | Gratis | Gratis | Beta |
+| Tramo 1 | 1 | ~19 €/piscina | ~19 € | Solo |
+| Tramo 2 | hasta 5 | ~15 €/piscina | hasta ~75 € | Pequeño |
+| Tramo 3 | hasta 25 | ~11 €/piscina | hasta ~275 € | Mediano |
+| Tramo 4 | hasta 100 | ~6 €/piscina | hasta ~600 € | Grande |
+| ♾️ Platinum | +100 | A medida | — | Platinum |
+
+> ⚠️ Los precios son orientativos — pendiente de validar con primeros usuarios de pago reales.
+
+**Variantes a decidir:**
+- **Volume pricing** (todo se cobra al precio del tramo en que caes — más simple de comunicar) vs. **Tiered pricing** (cada tramo a su precio — más justo pero difícil de explicar en la web). **Recomendación: Volume pricing.**
+- Añadir un segundo límite de **establecimientos por cuenta** además de piscinas, para dificultar aún más el gaming del agregador.
+- Stripe soporta Graduated Pricing de forma nativa — no requiere lógica manual en el backend.
+
+**Pendiente de decisión antes de implementar:** ¿el límite aplica por piscinas totales en la cuenta o por piscinas por establecimiento?
+
+#### 🏆 La joya de la corona — roadmap estratégico
+
+> **Envío directo a SILOE desde SG** (pendiente de investigar si SILOE expone endpoint/API)
+>
+> `SG → genera XML → lo envía directo al endpoint de SILOE con las credenciales del establecimiento`
+>
+> Si SG es quien envía, el XML nunca sale en texto plano al usuario → elimina el retoque manual → cierra el gaming definitivamente → y de paso da un valor enorme al cliente legítimo (ya no tiene que subir nada a mano).
+>
+> **Acción pendiente:** investigar si `hospedajes.ses.mir.es` o el sistema SILOE del Ministerio de Sanidad exponen algún endpoint SOAP/REST para envío programático de XMLs. Preguntar también en la solicitud a la Policía Nacional (ya enviada) si hay documentación técnica de integración disponible.
+>
+> **Contacto técnico SILOE — Ministerio de Sanidad:** `aguas@sanidad.gob.es`
+> Posible canal para consultar soporte técnico de SILOE, documentación de integración y/o endpoint de envío programático de XMLs. Pendiente de contactar.
 
 ### Flujo de registro y pago
 
@@ -90,15 +143,15 @@
 
 ### 2.2 DNIBridge (nuevo proyecto activo)
 
-| Campo | Valor |
-|---|---|
-| **Nombre** | DNIBridge |
-| **Subtítulo** | Verificación del QR dinámico de MiDNI |
-| **Repositorio** | Proyecto separado (`DNIBridge`) |
-| **URL pre-release** | https://dnibridge-pre.chumbo.io |
-| **Qué hace** | Webapp que escanea, parsea y verifica criptográficamente el QR del DNI digital español (MiDNI), sin hardware adicional. |
-| **Marco legal** | Real Decreto 255/2025 (aceptación obligatoria del DNI digital desde 2026-04-02) |
-| **Stack** | Vue 3 + Vite + `qr-scanner` + `jsQR` + `@zxing/library` |
+| Campo                   | Valor                                                                                                                                                                                                                                                                                                                                                                                          |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Nombre**              | DNIBridge                                                                                                                                                                                                                                                                                                                                                                                      |
+| **Subtítulo**           | Verificación del QR dinámico de MiDNI                                                                                                                                                                                                                                                                                                                                                          |
+| **Repositorio**         | Proyecto separado (`DNIBridge`)                                                                                                                                                                                                                                                                                                                                                                |
+| **URL pre-release**     | https://dnibridge-pre.chumbo.io                                                                                                                                                                                                                                                                                                                                                                |
+| **Qué hace**            | Webapp que escanea, parsea y verifica criptográficamente el QR del DNI digital español (MiDNI), sin hardware adicional.                                                                                                                                                                                                                                                                        |
+| **Marco legal**         | Real Decreto 255/2025 (aceptación obligatoria del DNI digital desde 2026-04-02)                                                                                                                                                                                                                                                                                                                |
+| **Stack**               | Vue 3 + Vite + `qr-scanner` + `jsQR` + `@zxing/library`                                                                                                                                                                                                                                                                                                                                        |
 | **Estado (abril 2026)** | ✅ Validado con DNI real (miDNI del fundador). Decodificación robusta en cascada, validación ECDSA P-256 operativa, pruebas activas en iOS. Contacto iniciado con la Dirección General de la Policía Nacional (petición vía sede electrónica). Foco geográfico inicial: **Canarias como laboratorio turístico**. Siguientes pasos: integración con SES Hospedajes y evolución hacia mercado UE. |
 
 Notas para la web corporativa:
@@ -164,23 +217,23 @@ public/
 
 ### Paleta
 
-| Token | Hex | Rol |
-|---|---|---|
-| `--chumbo-skin` | `#9B1D35` | Piel del fruto · "chumbo" en wordmark · color principal |
-| `--chumbo-flesh` | `#F4A523` | Pulpa · ".io" en wordmark · accent/CTA |
-| `--chumbo-dark` | `#6E1225` | Corona · hover / sombras |
-| `--chumbo-spine` | `#7A1528` | Aréolas · detalles sutiles |
-| `--bg-dark` | `#111111` | Fondos oscuros (hero, secciones de impacto) |
-| `--bg-light` | `#FAFAF8` | Fondos claros (secciones de contenido) |
+| Token            | Hex       | Rol                                                     |
+|------------------|-----------|---------------------------------------------------------|
+| `--chumbo-skin`  | `#9B1D35` | Piel del fruto · "chumbo" en wordmark · color principal |
+| `--chumbo-flesh` | `#F4A523` | Pulpa · ".io" en wordmark · accent/CTA                  |
+| `--chumbo-dark`  | `#6E1225` | Corona · hover / sombras                                |
+| `--chumbo-spine` | `#7A1528` | Aréolas · detalles sutiles                              |
+| `--bg-dark`      | `#111111` | Fondos oscuros (hero, secciones de impacto)             |
+| `--bg-light`     | `#FAFAF8` | Fondos claros (secciones de contenido)                  |
 
 > 💡 El `.io` del wordmark usa `#F4A523` — crea coherencia visual con el mordisco del icono.
 
 ### Tipografía
 
-| Rol | Fuente | Instalación |
-|---|---|---|
+| Rol                | Fuente            | Instalación                       |
+|--------------------|-------------------|-----------------------------------|
 | Wordmark / Títulos | **Space Grotesk** | `npm i @fontsource/space-grotesk` |
-| Cuerpo / UI | **Inter** | `npm i @fontsource/inter` |
+| Cuerpo / UI        | **Inter**         | `npm i @fontsource/inter`         |
 
 - Self-hosted via Fontsource (sin Google Fonts → privacidad)
 
@@ -313,4 +366,4 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 
 ---
 
-*Brief actualizado: 7 abril 2026 · chumbo.io · soporte@chumbo.io*
+*Brief actualizado: 15 abril 2026 · chumbo.io · soporte@chumbo.io*
