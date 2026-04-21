@@ -80,14 +80,14 @@ Una empresa de mantenimiento que lleva 50 hoteles × 2 piscinas cada uno podría
 Precio por piscina que decrece con el volumen, pero **siempre con un máximo** (no infinito).
 El establecimiento más grande estimado en Canarias: ~100 piscinas (hotel de lujo con piscina por habitación).
 
-| Tramo | Piscinas incluidas | Precio/piscina | Total/mes aprox. | Nombre sugerido |
-|---|---|---|---|---|
-| 🌵 Beta | 1 | Gratis | Gratis | Beta |
-| Tramo 1 | 1 | ~19 €/piscina | ~19 € | Solo |
-| Tramo 2 | hasta 5 | ~15 €/piscina | hasta ~75 € | Pequeño |
-| Tramo 3 | hasta 25 | ~11 €/piscina | hasta ~275 € | Mediano |
-| Tramo 4 | hasta 100 | ~6 €/piscina | hasta ~600 € | Grande |
-| ♾️ Platinum | +100 | A medida | — | Platinum |
+| Tramo       | Piscinas incluidas | Precio/piscina | Total/mes aprox. | Nombre sugerido |
+|-------------|--------------------|----------------|------------------|-----------------|
+| 🌵 Beta     | 1                  | Gratis         | Gratis           | Beta            |
+| Tramo 1     | 1                  | ~19 €/piscina  | ~19 €            | Solo            |
+| Tramo 2     | hasta 5            | ~15 €/piscina  | hasta ~75 €      | Pequeño         |
+| Tramo 3     | hasta 25           | ~11 €/piscina  | hasta ~275 €     | Mediano         |
+| Tramo 4     | hasta 100          | ~6 €/piscina   | hasta ~600 €     | Grande          |
+| ♾️ Platinum | +100               | A medida       | —                | Platinum        |
 
 > ⚠️ Los precios son orientativos — pendiente de validar con primeros usuarios de pago reales.
 
