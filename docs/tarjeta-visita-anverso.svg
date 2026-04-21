@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 550" role="img" aria-label="Tarjeta de visita chumbo.io — Anverso">
+  <title>Tarjeta de visita — chumbo.io</title>
+  <defs>
+    <!-- Esquinas redondeadas (3mm ≈ 11px a esta escala) -->
+    <clipPath id="card-clip">
+      <rect x="0" y="0" width="850" height="550" rx="28" ry="28"/>
+    </clipPath>
+
+    <!-- Sombra sutil para el efecto mockup -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="6" stdDeviation="16" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+
+    <!-- Brillo selectivo (UVI) sobre logo y .io -->
+    <filter id="gloss">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="1.5" result="blur"/>
+      <feSpecularLighting in="blur" surfaceScale="4" specularConstant="1.2" specularExponent="30" result="specular" lighting-color="#ffffff">
+        <fePointLight x="200" y="80" z="120"/>
+      </feSpecularLighting>
+      <feComposite in="specular" in2="SourceAlpha" operator="in" result="specular-out"/>
+      <feBlend in="SourceGraphic" in2="specular-out" mode="screen"/>
+    </filter>
+
+    <!-- Gradiente muy sutil en el fondo (simula acabado mate con variación tonal) -->
+    <radialGradient id="bg-texture" cx="30%" cy="35%" r="80%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+
+    <!-- Máscara bite del logo -->
+    <mask id="bite-tv">
+      <rect width="200" height="270" fill="white"/>
+      <circle cx="163" cy="116" r="36" fill="black"/>
+    </mask>
+    <clipPath id="body-clip-tv">
+      <path d="M100,56 C75,56 54,70 46,90
+               C34,120 32,165 52,200
+               C64,220 80,232 100,234
+               C120,232 136,220 148,200
+               C168,165 166,118 158,86
+               C152,57 125,56 100,56Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- ── FONDO ──────────────────────────────────────────────────── -->
+  <rect x="0" y="0" width="850" height="550" rx="28" ry="28" fill="url(#bg-texture)"/>
+
+  <!-- Línea de acento dorada en el borde superior -->
+  <rect x="0" y="0" width="850" height="4" rx="2" fill="#F4A523" clip-path="url(#card-clip)"/>
+
+  <!-- ── LOGO (izquierda) ────────────────────────────────────────── -->
+  <!-- Icono: escalado y posicionado en la zona izquierda -->
+  <g transform="translate(48, 130) scale(0.78)" filter="url(#gloss)">
+    <!-- Cuerpo del chumbo -->
+    <path d="M100,56 C75,56 54,70 46,90
+             C34,120 32,165 52,200
+             C64,220 80,232 100,234
+             C120,232 136,220 148,200
+             C168,165 166,118 158,86
+             C152,57 125,56 100,56Z"
+          fill="#9B1D35" mask="url(#bite-tv)"/>
+    <!-- Aréolas -->
+    <g fill="#7A1528" clip-path="url(#body-clip-tv)" mask="url(#bite-tv)">
+      <circle cx="70"  cy="103" r="2.5"/>
+      <circle cx="88"  cy="91"  r="2.5"/>
+      <circle cx="103" cy="81"  r="2.5"/>
+      <circle cx="57"  cy="135" r="2.5"/>
+      <circle cx="74"  cy="123" r="2.5"/>
+      <circle cx="91"  cy="112" r="2.5"/>
+      <circle cx="54"  cy="166" r="2.5"/>
+      <circle cx="70"  cy="153" r="2.5"/>
+      <circle cx="87"  cy="142" r="2.5"/>
+      <circle cx="104" cy="132" r="2.5"/>
+      <circle cx="58"  cy="196" r="2.5"/>
+      <circle cx="74"  cy="183" r="2.5"/>
+      <circle cx="90"  cy="173" r="2.5"/>
+    </g>
+    <!-- Tallito + hojita -->
+    <g fill="#9B1D35">
+      <path d="M97,48 C96,40 98,32 101,26 C104,32 104,40 103,48 Z"/>
+      <path d="M102,37 C114,29 126,23 128,22 C128,26 120,35 103,42 Z"/>
+    </g>
+  </g>
+
+  <!-- Wordmark "chumbo.io" debajo del icono -->
+  <text
+    x="58" y="355"
+    font-family="'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif"
+    font-size="38"
+    filter="url(#gloss)"
+  >
+    <tspan font-weight="700" fill="#9B1D35">chumbo</tspan><tspan font-weight="300" fill="#F4A523">.io</tspan>
+  </text>
+
+  <!-- ── SEPARADOR VERTICAL ─────────────────────────────────────── -->
+  <line x1="340" y1="60" x2="340" y2="490"
+        stroke="#9B1D35" stroke-width="0.8" stroke-opacity="0.35"/>
+
+  <!-- ── DATOS PERSONALES (derecha) ─────────────────────────────── -->
+  <!-- Nombre -->
+  <text
+    x="378" y="155"
+    font-family="'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif"
+    font-size="32"
+    font-weight="700"
+    fill="#FAFAF8"
+    letter-spacing="-0.3"
+  >Juan Antonio Rodríguez Baeza</text>
+
+  <!-- Cargo -->
+  <text
+    x="378" y="195"
+    font-family="'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif"
+    font-size="20"
+    font-weight="300"
+    font-style="italic"
+    fill="#9B1D35"
+    letter-spacing="0.5"
+  >Founder &amp; Lead Engineer</text>
+
+  <!-- Separador fino dorado -->
+  <rect x="378" y="218" width="420" height="1" fill="#F4A523" opacity="0.4"/>
+
+  <!-- Email — icono @ + texto -->
+  <text x="378" y="258"
+        font-family="'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif"
+        font-size="19" fill="#FAFAF8" opacity="0.85">
+    <tspan fill="#F4A523" font-weight="600">@</tspan>  juan@chumbo.io
+  </text>
+
+  <!-- Teléfono — icono + texto -->
+  <text x="378" y="298"
+        font-family="'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif"
+        font-size="19" fill="#FAFAF8" opacity="0.85">
+    <tspan fill="#F4A523">↗</tspan>  +34 625 993 716
+  </text>
+
+  <!-- Web -->
+  <text x="378" y="338"
+        font-family="'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif"
+        font-size="19" fill="#FAFAF8" opacity="0.85">
+    <tspan fill="#F4A523">◈</tspan>  chumbo.io
+  </text>
+
+  <!-- ── TAGLINE (inferior) ─────────────────────────────────────── -->
+  <!-- Línea de acento antes del tagline -->
+  <rect x="48" y="436" width="754" height="0.8" fill="#F4A523" opacity="0.25"/>
+
+  <text
+    x="425" y="484"
+    text-anchor="middle"
+    font-family="'Space Grotesk', 'Plus Jakarta Sans', Inter, system-ui, sans-serif"
+    font-size="17"
+    font-weight="500"
+    fill="#F4A523"
+    letter-spacing="2"
+    opacity="0.9"
+  >Software que funciona. Sin humo.</text>
+
+  <!-- Punto decorativo esquina inferior derecha -->
+  <circle cx="810" cy="515" r="4" fill="#9B1D35" opacity="0.5"/>
+  <circle cx="795" cy="515" r="4" fill="#F4A523" opacity="0.5"/>
+  <circle cx="780" cy="515" r="4" fill="#6E1225" opacity="0.5"/>
+
+</svg>
+

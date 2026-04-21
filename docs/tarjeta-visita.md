@@ -10,7 +10,7 @@ Especificaciones del Diseño (Anverso - Frontal):
 Fondo: Debe ser un negro mate profundo (#111111, --bg-dark), evocando el acabado "Denim Black" de una Harley-Davidson Sportster Iron. La textura debe ser táctil y anti-huellas.
 
 Logo (Izquierda o Centro): El isotipo principal es un higo chumbo estilizado. El cuerpo del chumbo (la piel) debe ser #9B1D35 (--chumbo-skin). Debe incluir el detalle de la corona/sombras en #6E1225 (--chumbo-dark). El chumbo debe tener un "bocado" sutil pero claro en un lateral. La tipografía de "Chumbosoft" debe usar la fuente Space Grotesk; "chumbo" en #9B1D35 (--chumbo-skin) y el sufijo ".io" en #F4A523 (--chumbo-flesh).
-
+                           (/home/juan/Documentos/IdeaProjects/chumbo.io/docs/logo-chumbosoft.jpg)
 Datos Personales (Derecha, tipografía Space Grotesk en #FAFAF8 --bg-light):
 
 Juan Antonio Rodriguez Baeza (en negrita, tamaño ligeramente superior).
@@ -27,7 +27,7 @@ Especificaciones del Diseño (Reverso - Trasera):
 
 Fondo: Mismo negro mate (#111111, --bg-dark).
 
-Elemento Central: Un código QR generoso (mínimo 20x20 mm), renderizado en #FAFAF8 (--bg-light) sobre un cuadrado #111111, rodeado por un sutil borde #F4A523 (--chumbo-flesh).
+Elemento Central: Un código QR (/home/juan/Documentos/IdeaProjects/chumbo.io/docs/chumbo.io-qr.jpg) generoso (mínimo 20x20 mm), renderizado en #FAFAF8 (--bg-light) sobre un cuadrado #111111, rodeado por un sutil borde #F4A523 (--chumbo-flesh).
 
 Texto debajo del QR: "Escanea para la demo en vivo: chumbo.io" (en #F4A523).
 
