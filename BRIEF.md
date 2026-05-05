@@ -41,7 +41,7 @@
 | **Subtítulo**         | Libro Digital de Piscinas                                                                                                                                                                                         |
 | **URL producción**    | https://siloegenerator.chumbo.io                                                                                                                                                                                  |
 | **URL API**           | https://api.chumbo.io                                                                                                                                                                                             |
-| **Versión actual**    | `beta-v0.0.7-20260330`                                                                                                                                                                                            |
+| **Versión actual**    | `beta-v0.0.9-20260505`                                                                                                                                                                                            |
 | **Qué hace**          | Sustituye el libro de registro en papel/Excel de una piscina. Gestiona lecturas diarias de parámetros físico-químicos, genera el XML oficial para el sistema SILOE de Sanidad y gestiona muestras de laboratorio. |
 | **Marco legal**       | Real Decreto 742/2013, de 27 de septiembre — criterios técnico-sanitarios de piscinas                                                                                                                             |
 | **Clientes objetivo** | Hoteles, campings, clubes deportivos, comunidades de vecinos — cualquier establecimiento con piscina de uso público en España                                                                                     |
@@ -148,7 +148,7 @@ El establecimiento más grande estimado en Canarias: ~100 piscinas (hotel de luj
 | **Nombre**              | DNIBridge                                                                                                                                                                                                                                                                                                                                                                                      |
 | **Subtítulo**           | Verificación del QR dinámico de MiDNI                                                                                                                                                                                                                                                                                                                                                          |
 | **Repositorio**         | Proyecto separado (`DNIBridge`)                                                                                                                                                                                                                                                                                                                                                                |
-| **URL pre-release**     | https://dnibridge-pre.chumbo.io                                                                                                                                                                                                                                                                                                                                                                |
+| **URL release**         | https://dnibridge.chumbo.io                                                                                                                                                                                                                                                                                                                                                                    |
 | **Qué hace**            | Webapp que escanea, parsea y verifica criptográficamente el QR del DNI digital español (MiDNI), sin hardware adicional.                                                                                                                                                                                                                                                                        |
 | **Marco legal**         | Real Decreto 255/2025 (aceptación obligatoria del DNI digital desde 2026-04-02)                                                                                                                                                                                                                                                                                                                |
 | **Stack**               | Vue 3 + Vite + `qr-scanner` + `jsQR` + `@zxing/library`                                                                                                                                                                                                                                                                                                                                        |
@@ -169,7 +169,7 @@ Notas para la web corporativa:
 chumbo.io                          →  web corporativa (este proyecto)
 siloegenerator.chumbo.io           →  app frontend (Railway · CNAME)
 api.chumbo.io                      →  backend API (Railway · CNAME)
-dnibridge-pre.chumbo.io            →  DNIBridge pre-release (Cloudflare Workers)
+dnibridge.chumbo.io                →  DNIBridge release (Cloudflare Workers)
 noreply@siloegenerator.chumbo.io   →  emails transaccionales (Resend · SPF+DKIM verificados)
 soporte@chumbo.io                  →  redirige a email personal del fundador (Cloudflare Email Routing)
 ```
@@ -332,7 +332,7 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 - Fundador técnico solo, sin inversión externa
 - **Chumbosoft, S.L.** inscrita en el Registro Mercantil Central ✅
 - **Logo-chumbosoft registrado en la OEPM** (marca en trámite de concesión) ✅
-- Producto en **beta pública activa** — versión `beta-v0.0.7-20260330`
+- Producto en **beta pública activa** — versión `beta-v0.0.9-20260505`
 - Primeros usuarios reales en producción
 - Ingresos recurrentes vía Stripe (modelo SaaS mensual)
 - BD de producción limpia: cuentas root (`admin@siloe.com`, `juanrdzbaeza@gmail.com`) + tenant ANCOTUR (pruebas internas)
@@ -361,7 +361,7 @@ El Real Decreto 742/2013 obliga a los titulares de piscinas de uso público a ll
 9. **README.md** actualizado con instrucciones de desarrollo y despliegue en Cloudflare Pages
 10. **package.json** con scripts `dev`, `build`, `preview`
 11. **Migraciones / DB**: comprobar que `backend/migrations/20260330_add_force_password_change.sql` existe y que `backend/scripts/init-db.js` lo referencia (para que la migración se aplique en despliegues automáticos). Si no está referenciada, añadirla a `init-db.js`.
-12. **Tag & Release**: crear tag git `beta/v0.0.7-20260330` y preparar release notes mínimas en el changelog: destacar `force_password_change`, mejoras mobile-first y correcciones de duplicados en lecturas.
+12. **Tag & Release**: crear tag git `beta/v0.0.9-20260505` y preparar release notes mínimas en el changelog: destacar `force_password_change`, mejoras mobile-first y correcciones de duplicados en lecturas.
 13. **Contenido corporativo actualizado**: reflejar explícitamente en Home y `/productos` que chumbo.io también desarrolla **DNIBridge** (sin crear pricing inventado para ese proyecto).
 
 ---
