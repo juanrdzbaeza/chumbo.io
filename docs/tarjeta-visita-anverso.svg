@@ -27,11 +27,7 @@
       <stop offset="100%" stop-color="#0a0a0a"/>
     </radialGradient>
 
-    <!-- Máscara bite del logo -->
-    <mask id="bite-tv">
-      <rect width="200" height="270" fill="white"/>
-      <circle cx="163" cy="116" r="36" fill="black"/>
-    </mask>
+    <!-- Máscara bite del logo - ELIMINADA (conflicto con diseño Apple) -->
     <clipPath id="body-clip-tv">
       <path d="M100,56 C75,56 54,70 46,90
                C34,120 32,165 52,200
